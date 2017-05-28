@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0.5">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="MIC Direct"
+                android:layout_width="@dimen/level_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="@dimen/level_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/level_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/OutputDirectSeekBar"
+                android:max="127"
+                android:progress="127"/>
+            <TextView
+                android:text=" : 0.00dB"
+                android:layout_width="@dimen/level_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/OutputDirectTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="MIC Echo"
+                android:layout_width="@dimen/level_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="@dimen/level_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/level_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/OutputEchoSeekBar"
+                android:max="127"
+                android:progress="127"/>
+            <TextView
+                android:text=" : 0.00dB"
+                android:layout_width="@dimen/level_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/OutputEchoTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="MIC Reverb"
+                android:layout_width="@dimen/level_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="@dimen/level_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/level_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/OutputReverbSeekBar"
+                android:max="127"
+                android:progress="127"/>
+            <TextView
+                android:text=" : 0.00dB"
+                android:layout_width="@dimen/level_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/OutputReverbTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Music"
+                android:layout_width="@dimen/level_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="@dimen/level_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/level_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/OutputMusicSeekBar"
+                android:max="127"
+                android:progress="127"/>
+            <TextView
+                android:text=" : 0.00dB"
+                android:layout_width="@dimen/level_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/OutputMusicTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:text="Gain"
+                android:layout_width="@dimen/level_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/level_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/level_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/OutputGainSeekBar"
+                android:max="127"
+                android:progress="127"/>
+            <TextView
+                android:text=" : 0.00dB"
+                android:layout_width="@dimen/level_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/OutputGainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="Output Delay"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Time: 0ms"
+                android:id="@+id/OutputDelayTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/OutputDelaySeekBar"
+                android:max="100"
+                android:progress="0"/>
+        </LinearLayout>
+
+        <CheckBox
+            android:text="Phase Reverse"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/OutputPhaseReverseCheckbox"/>
+
+        <CheckBox
+            android:text="Compressor"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:checked="true"
+            android:id="@+id/OutputCompressorSwitchCheckbox"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Attack: 80ms"
+                android:id="@+id/OutputCompressorAttackTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/OutputCompressorAttackSeekBar"
+                android:max="100"
+                android:progress="80"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Release: 5ms"
+                android:id="@+id/OutputCompressorReleaseTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/OutputCompressorReleaseSeekBar"
+                android:max="100"
+                android:progress="5"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Threshold: 70"
+                android:id="@+id/OutputCompressorThresholdTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/OutputCompressorThresholdSeekBar"
+                android:max="100"
+                android:progress="70"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Ratio: 4.00->1"
+                android:id="@+id/OutputCompressorRatioTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/OutputCompressorRatioSeekBar"
+                android:max="13"
+                android:progress="9"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Post Gain: 5dB"
+                android:id="@+id/OutputCompressorPostgainTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/OutputCompressorPostgainSeekBar"
+                android:max="18"
+                android:progress="5"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0.5">
+
+        <CheckBox
+            android:text="Output 5Band PEQ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/OutputPeqSwitchCheckBox"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/eq_margin">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="High Pass"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputHighpassFreqSeekBar"
+                    android:max="69"
+                    android:progress="0"/>
+                <TextView
+                    android:text=": Flat"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/OutputHighpassFreqTextView"/>
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputHighpassTypeSeekBar"
+                    android:max="7"
+                    android:progress="6"/>
+                <TextView
+                    android:text=": Btrwth-24dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/OutputHighpassTypeTextView"
+                    android:gravity="center_horizontal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 1"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand1FreqSeekBar"
+                    android:max="40"
+                    android:progress="10"/>
+                <TextView
+                    android:text=": 63Hz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand1FreqTextView"/>
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand1QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/OutputPeqBand1QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand1GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/OutputPeqBand1GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 2"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand2FreqSeekBar"
+                    android:max="60"
+                    android:progress="16"/>
+                <TextView
+                    android:text=": 125Hz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/OutputPeqBand2FreqTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand2QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/OutputPeqBand2QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand2GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/OutputPeqBand2GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 3"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand3FreqSeekBar"
+                    android:max="60"
+                    android:progress="22"/>
+                <TextView
+                    android:text=": 250Hz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/OutputPeqBand3FreqTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand3QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/OutputPeqBand3QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand3GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/OutputPeqBand3GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 4"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand4FreqSeekBar"
+                    android:max="60"
+                    android:progress="28"/>
+                <TextView
+                    android:text=": 500Hz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/OutputPeqBand4FreqTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand4QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/OutputPeqBand4QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand4GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/OutputPeqBand4GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 5"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand5FreqSeekBar"
+                    android:max="60"
+                    android:progress="34"/>
+                <TextView
+                    android:text=": 1.0kHz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/OutputPeqBand5FreqTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand5QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/OutputPeqBand5QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputPeqBand5GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/OutputPeqBand5GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Low Pass"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputLowpassFreqSeekBar"
+                    android:max="111"
+                    android:progress="111"/>
+                <TextView
+                    android:text=": Flat"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/OutputLowpassFreqTextView"/>
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/OutputLowpassTypeSeekBar"
+                    android:max="10"
+                    android:progress="6"/>
+                <TextView
+                    android:text=": Btrwth-24dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/OutputLowpassTypeTextView"
+                    android:gravity="center_horizontal" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0.5">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="In Level"
+                android:layout_width="@dimen/level_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/level_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/level_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/EchoInputSeekBar"
+                android:max="127"
+                android:progress="0"/>
+            <TextView
+                android:text=" : Mute"
+                android:layout_width="@dimen/level_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/EchoInputTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:text="Out Level"
+                android:layout_width="@dimen/level_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/level_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/level_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/EchoOutputSeekBar"
+                android:max="127"
+                android:progress="64"/>
+            <TextView
+                android:text=" : -6.09dB"
+                android:layout_width="@dimen/level_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/EchoOutputTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="Echo Level"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text=": 0dB"
+                android:id="@+id/EchoLevelTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/EchoLevelSeekBar"
+                android:max="127"
+                android:progress="127"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="Echo Time"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text=": 200ms"
+                android:id="@+id/EchoTimeTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/EchoTimeSeekBar"
+                android:max="127"
+                android:progress="20"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="Feedback Level"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text=": 50"
+                android:id="@+id/EchoFeedbackLevelTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/EchoFeedbackLevelSeekBar"
+                android:max="127"
+                android:progress="50"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="Echo Tone"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text=": 0"
+                android:id="@+id/EchoToneTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/EchoToneSeekBar"
+                android:max="14"
+                android:progress="7"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="Echo Pan"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text=": 0"
+                android:id="@+id/EchoPanTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/EchoPanSeekBar"
+                android:max="127"
+                android:progress="64"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="Pre Delay"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text=": 0ms"
+                android:id="@+id/EchoPreDelayTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/EchoPreDelaySeekBar"
+                android:max="100"
+                android:progress="0"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="tap 1"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:text="tap 2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:text="tap 3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content">
+
+                <SeekBar
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/Tap1TimeSeekBar"
+                    android:max="127"
+                    android:progress="63"/>
+                <TextView
+                    android:text="time: 50%"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/Tap1TimeTextView"/>
+
+                <SeekBar
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/Tap2TimeSeekBar"
+                    android:max="127"
+                    android:progress="63"/>
+                <TextView
+                    android:text="time: 50%"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Tap2TimeTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/Tap3TimeSeekBar"
+                    android:max="127"
+                    android:progress="63"/>
+                <TextView
+                    android:text="time: 50%"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Tap3TimeTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content">
+
+                <SeekBar
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/Tap1LevelSeekBar"
+                    android:max="127"
+                    android:progress="0"/>
+                <TextView
+                    android:text="level: 0"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/Tap1LevelTextView"/>
+
+                <SeekBar
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/Tap2LevelSeekBar"
+                    android:max="127"
+                    android:progress="0"/>
+                <TextView
+                    android:text="level: 0"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Tap2LevelTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/Tap3LevelSeekBar"
+                    android:max="127"
+                    android:progress="0"/>
+                <TextView
+                    android:text="level: 0"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Tap3LevelTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content">
+
+                <SeekBar
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/Tap1PanSeekBar"
+                    android:max="127"
+                    android:progress="64"/>
+                <TextView
+                    android:text="pan: 0"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/Tap1PanTextView"/>
+
+                <SeekBar
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/Tap2PanSeekBar"
+                    android:max="127"
+                    android:progress="64"/>
+                <TextView
+                    android:text="pan: 0"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Tap2PanTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/Tap3PanSeekBar"
+                    android:max="127"
+                    android:progress="64"/>
+                <TextView
+                    android:text="pan: 0"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Tap3PanTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+            
+        </LinearLayout>
+
+        <CheckBox
+            android:text="Phase Reverse"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:id="@+id/EchoPhaseReverseCheckbox"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0.5">
+
+        <CheckBox
+            android:text="Echo Input Source 5Band PEQ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/EchoPeqSwitchCheckBox"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/eq_margin">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="High Pass"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoHighpassFreqSeekBar"
+                    android:max="69"
+                    android:progress="0"/>
+                <TextView
+                    android:text=": Flat"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/EchoHighpassFreqTextView"/>
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoHighpassTypeSeekBar"
+                    android:max="7"
+                    android:progress="6"/>
+                <TextView
+                    android:text=": Btrwth-24dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/EchoHighpassTypeTextView"
+                    android:gravity="center_horizontal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 1"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand1FreqSeekBar"
+                    android:max="40"
+                    android:progress="10"/>
+                <TextView
+                    android:text=": 63Hz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand1FreqTextView"/>
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand1QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/EchoPeqBand1QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand1GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/EchoPeqBand1GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 2"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand2FreqSeekBar"
+                    android:max="60"
+                    android:progress="16"/>
+                <TextView
+                    android:text=": 125Hz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/EchoPeqBand2FreqTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand2QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/EchoPeqBand2QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand2GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/EchoPeqBand2GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 3"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand3FreqSeekBar"
+                    android:max="60"
+                    android:progress="22"/>
+                <TextView
+                    android:text=": 250Hz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/EchoPeqBand3FreqTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand3QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/EchoPeqBand3QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand3GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/EchoPeqBand3GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 4"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand4FreqSeekBar"
+                    android:max="60"
+                    android:progress="28"/>
+                <TextView
+                    android:text=": 500Hz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/EchoPeqBand4FreqTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand4QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/EchoPeqBand4QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand4GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/EchoPeqBand4GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 5"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand5FreqSeekBar"
+                    android:max="60"
+                    android:progress="34"/>
+                <TextView
+                    android:text=": 1.0kHz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/EchoPeqBand5FreqTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand5QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/EchoPeqBand5QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoPeqBand5GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/EchoPeqBand5GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Low Pass"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoLowpassFreqSeekBar"
+                    android:max="111"
+                    android:progress="111"/>
+                <TextView
+                    android:text=": Flat"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/EchoLowpassFreqTextView"/>
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/EchoLowpassTypeSeekBar"
+                    android:max="10"
+                    android:progress="6"/>
+                <TextView
+                    android:text=": Btrwth-24dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/EchoLowpassTypeTextView"
+                    android:gravity="center_horizontal" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

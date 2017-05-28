@@ -1,0 +1,519 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SurfaceView
+        android:id="@+id/mediaPlayerView"
+		android:layout_width="400px"
+		android:layout_height="240px"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/showPlayNamePanel"
+        android:layout_alignParentLeft="false"
+        android:layout_toRightOf="@+id/mediaPlayerView">
+        <TextView
+            android:id="@+id/songsName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="0.15in"
+            android:text="歌曲名: "
+            android:layout_below="@+id/bottonPanel"
+            android:layout_alignParentLeft="true" />
+        <TextView
+            android:id="@+id/SongNameView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="0.15in" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/playerPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/showPlayNamePanel"
+        android:layout_alignParentLeft="false"
+        android:layout_alignLeft = "@+id/showPlayNamePanel">
+        <Button
+            android:id="@+id/PlayBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"
+            android:text="播放"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true">
+        </Button>
+
+        <Button
+            android:id="@+id/CircelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"
+            android:text="重唱"
+            android:layout_below="@+id/playerPanel"
+            android:layout_alignLeft="@+id/PlayBtn">
+        </Button>
+
+        <Button
+            android:id="@+id/SuspendBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"
+            android:text="暂停"
+            android:layout_below="@+id/playerPanel"
+            android:layout_alignLeft="@+id/CircelBtn">
+        </Button>
+
+        <Button
+            android:id="@+id/StopBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"
+            android:text="停止"
+            android:layout_below="@+id/playerPanel"
+            android:layout_alignLeft="@+id/CircelBtn">
+        </Button>
+
+        <Button
+            android:id="@+id/MuteSwitchBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"
+            android:text="静音"
+            android:layout_below="@+id/playerPanel"
+            android:layout_alignLeft="@+id/StopBtn">
+        </Button>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/playerPanel"
+        android:layout_alignParentLeft="false"
+        android:layout_alignLeft="@+id/playerPanel">
+        <Button
+            android:id="@+id/RecordStartBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="录音"
+            android:layout_alignLeft="@+id/bottonPanel">
+            </Button>
+
+        <Button
+            android:id="@+id/RecordStopBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="停录"
+            android:layout_alignLeft="@+id/RecordStartBtn">
+        </Button>
+
+        <Button
+            android:id="@+id/RecordPlayBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="回放"
+            android:layout_below="@+id/bottonPanel"
+            android:layout_alignLeft="@+id/RecordStartStopBtn">
+        </Button>
+
+        <Button
+            android:id="@+id/btn_rec_play_L"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="回放左" />
+        <Button
+            android:id="@+id/btn_rec_play_R"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="回放右" />
+        <Button
+            android:id="@+id/btn_rec_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="存u盘" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/rolandMixerPanel"
+        android:layout_below="@+id/mediaPlayerView">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_mic_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mic输入" />
+
+            <Button
+                android:id="@+id/btn_music_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="music输入" />
+
+            <Button
+                android:id="@+id/btn_echo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="echo" />
+
+            <Button
+                android:id="@+id/btn_reverb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="reverb" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_front_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="耳放输出" />
+
+            <Button
+                android:id="@+id/btn_center_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="录音送回" />
+
+            <Button
+                android:id="@+id/btn_sub_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="低音输出" />
+
+            <Button
+                android:id="@+id/btn_rear_output"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="小板输出" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:text="重置DSP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <Button
+                        android:id="@+id/btn_card_reset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@android:color/holo_red_light"
+                        android:text="reset" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:visibility="invisible"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:text="专业"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <Button
+                        android:id="@+id/btn_professional_default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="professional" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:text="标准"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <Button
+                        android:id="@+id/btn_standard_default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="standard" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:visibility="invisible"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:text="清晰录音"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <Button
+                        android:id="@+id/btn_recording_default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="for recording" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:visibility="invisible"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:text="轻松演唱"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <Button
+                        android:id="@+id/btn_enjoy_default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="easy enjoy" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:text="customize 0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <Button
+                        android:id="@+id/btn_card_save"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="save" />
+
+                    <Button
+                        android:id="@+id/btn_card_load"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="load" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:text="customize 1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/btn_slot1_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="save" />
+
+                    <Button
+                        android:id="@+id/btn_slot1_load"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="load" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:text="customize 2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/btn_slot2_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="save" />
+
+                    <Button
+                        android:id="@+id/btn_slot2_load"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="load" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:text="customize 3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/btn_slot3_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="save" />
+
+                    <Button
+                        android:id="@+id/btn_slot3_load"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="load" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:text="customize 4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/btn_slot4_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="save" />
+
+                    <Button
+                        android:id="@+id/btn_slot4_load"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="load" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

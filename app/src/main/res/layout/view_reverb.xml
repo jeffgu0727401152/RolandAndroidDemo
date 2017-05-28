@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0.5">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="In Level"
+                android:layout_width="@dimen/level_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/level_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/level_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/ReverbInputSeekBar"
+                android:max="127"
+                android:progress="0"/>
+            <TextView
+                android:text=" : Mute"
+                android:layout_width="@dimen/level_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/ReverbInputTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:text="Out Level"
+                android:layout_width="@dimen/level_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/level_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/level_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/ReverbOutputSeekBar"
+                android:max="127"
+                android:progress="64"/>
+            <TextView
+                android:text=" : -6.09dB"
+                android:layout_width="@dimen/level_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/ReverbOutputTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="Reverb Type"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text=": 大厅混响2"
+                android:id="@+id/ReverbTypeTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/ReverbTypeSeekBar"
+                android:max="3"
+                android:progress="2"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="Reverb Time"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text=": 10ms"
+                android:id="@+id/ReverbTimeTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/ReverbTimeSeekBar"
+                android:max="19"
+                android:progress="10"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="Reverb Tone"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text=": 0"
+                android:id="@+id/ReverbToneTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/ReverbToneSeekBar"
+                android:max="14"
+                android:progress="7"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="Pre Delay"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text=": 0ms"
+                android:id="@+id/ReverbPreDelayTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/ReverbPreDelaySeekBar"
+                android:max="127"
+                android:progress="0"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="Echo to Reverb"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text=": 0dB"
+                android:id="@+id/EchoToReverbTextView"/>
+            <SeekBar
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/EchoToReverbSeekBar"
+                android:max="127"
+                android:progress="0"/>
+        </LinearLayout>
+
+        <CheckBox
+            android:text="Phase Reverse"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/ReverbPhaseReverseCheckbox"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0.5">
+
+        <CheckBox
+            android:text="Reverb Input Source 5Band PEQ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ReverbPeqSwitchCheckBox"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/eq_margin">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="High Pass"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbHighpassFreqSeekBar"
+                    android:max="69"
+                    android:progress="0"/>
+                <TextView
+                    android:text=": Flat"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/ReverbHighpassFreqTextView"/>
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbHighpassTypeSeekBar"
+                    android:max="7"
+                    android:progress="6"/>
+                <TextView
+                    android:text=": Btrwth-24dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ReverbHighpassTypeTextView"
+                    android:gravity="center_horizontal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 1"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand1FreqSeekBar"
+                    android:max="40"
+                    android:progress="10"/>
+                <TextView
+                    android:text=": 63Hz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand1FreqTextView"/>
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand1QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ReverbPeqBand1QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand1GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ReverbPeqBand1GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 2"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand2FreqSeekBar"
+                    android:max="60"
+                    android:progress="16"/>
+                <TextView
+                    android:text=": 125Hz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ReverbPeqBand2FreqTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand2QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ReverbPeqBand2QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand2GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ReverbPeqBand2GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 3"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand3FreqSeekBar"
+                    android:max="60"
+                    android:progress="22"/>
+                <TextView
+                    android:text=": 250Hz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ReverbPeqBand3FreqTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand3QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ReverbPeqBand3QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand3GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ReverbPeqBand3GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 4"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand4FreqSeekBar"
+                    android:max="60"
+                    android:progress="28"/>
+                <TextView
+                    android:text=": 500Hz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ReverbPeqBand4FreqTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand4QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ReverbPeqBand4QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand4GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ReverbPeqBand4GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Band 5"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand5FreqSeekBar"
+                    android:max="60"
+                    android:progress="34"/>
+                <TextView
+                    android:text=": 1.0kHz"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ReverbPeqBand5FreqTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand5QSeekBar"
+                    android:max="31"
+                    android:progress="7"/>
+                <TextView
+                    android:text=": 1.0"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ReverbPeqBand5QTextView"
+                    android:gravity="center_horizontal" />
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_vertical_seekbar_height"
+                    android:layout_height="wrap_content"
+                    android:rotation="-90"
+                    android:translationY="110dp"
+                    android:translationX="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbPeqBand5GainSeekBar"
+                    android:max="120"
+                    android:progress="60"/>
+                <TextView
+                    android:text=" : 0dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ReverbPeqBand5GainTextView"
+                    android:gravity="center|bottom"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="@dimen/eq_band_width"
+                android:layout_height="@dimen/eq_band_height">
+                <TextView
+                    android:text="Low Pass"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbLowpassFreqSeekBar"
+                    android:max="111"
+                    android:progress="111"/>
+                <TextView
+                    android:text=": Flat"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/ReverbLowpassFreqTextView"/>
+
+                <SeekBar
+                    android:layout_width="@dimen/eq_horizontal_seekbar_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/eq_margin"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/ReverbLowpassTypeSeekBar"
+                    android:max="10"
+                    android:progress="6"/>
+                <TextView
+                    android:text=": Btrwth-24dB"
+                    android:layout_width="@dimen/eq_textview_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ReverbLowpassTypeTextView"
+                    android:gravity="center_horizontal" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

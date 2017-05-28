@@ -1,0 +1,949 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0.33">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
+            <TextView
+                android:text="Gain"
+                android:layout_width="@dimen/level_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/level_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/level_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicInputGainSeekBar"
+                android:max="127"
+                android:progress="64"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/level_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicInputGainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="AUX"
+                android:layout_width="@dimen/level_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/level_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/level_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicInputAuxSeekBar"
+                android:max="127"
+                android:progress="0"/>
+            <TextView
+                android:text=" : Mute"
+                android:layout_width="@dimen/level_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicInputAuxTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <CheckBox
+            android:text="Key Ctrl"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:id="@+id/KeyControlSwitchCheckbox"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="KEY: 0"
+                    android:id="@+id/KeyControlPitchTextView"/>
+
+                <SeekBar
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/KeyControlPitchSeekBar"
+                    android:max="24"
+                    android:progress="12"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="Fine Tune: 0"
+                    android:id="@+id/KeyControlPitchFineTextView"/>
+                <SeekBar
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/KeyControlPitchFineSeekBar"
+                    android:max="100"
+                    android:progress="50"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <CheckBox
+            android:text="Phase Reverse"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:id="@+id/MusicInputPhaseReverseCheckbox"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.33"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/MusicGeqSwitchCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="31 Band GEQ" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="20Hz"
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand1GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand1GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=" "
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand2GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand2GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=" "
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand3GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand3GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=" "
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand4GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand4GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="50Hz"
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand5GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand5GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=" "
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand6GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand6GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=" "
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand7GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand7GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="100Hz"
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand8GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand8GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=" "
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand9GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand9GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=" "
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand10GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand10GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="200Hz"
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand11GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand11GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=" "
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand12GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand12GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=" "
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand13GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand13GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=" "
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand14GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand14GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="500Hz"
+                android:textSize="@dimen/musicGeq_band_label_textsize" />
+
+            <SeekBar
+                android:id="@+id/MusicGeqBand15GainSeekBar"
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:max="120"
+                android:progress="60" />
+
+            <TextView
+                android:id="@+id/MusicGeqBand15GainTextView"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=" : 0dB" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.33">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=" "
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand16GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand16GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=" "
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand17GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand17GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="1kHz"
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand18GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand18GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=" "
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand19GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand19GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=" "
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand20GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand20GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="2kHz"
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand21GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand21GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=" "
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand22GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand22GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=" "
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand23GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand23GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=" "
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand24GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand24GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="5kHz"
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand25GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand25GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=" "
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand26GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand26GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=" "
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand27GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand27GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="10kHz"
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand28GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand28GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=" "
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand29GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand29GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=" "
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand30GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand30GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="20khz"
+                android:layout_width="@dimen/musicGeq_band_label_width"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/musicGeq_band_label_textsize"/>
+            <SeekBar
+                android:layout_width="@dimen/musicGeq_seekbar_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand31GainSeekBar"
+                android:max="120"
+                android:progress="60"/>
+            <TextView
+                android:text=" : 0dB"
+                android:layout_width="@dimen/musicGeq_gain_mark_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/MusicGeqBand31GainTextView"
+                android:gravity="left"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
