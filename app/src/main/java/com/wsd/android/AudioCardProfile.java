@@ -1,9 +1,7 @@
-package com.example.testmediaplayer;
+package com.wsd.android;
 
 import android.content.SharedPreferences;
 import android.util.Log;
-
-import com.wsd.android.WsdAudioCardCtrl;
 
 /**
  * Created by jeff on 17-3-31.
@@ -12,10 +10,8 @@ import com.wsd.android.WsdAudioCardCtrl;
 public class AudioCardProfile {
     private final String TAG = "Audio Card Profile";
     private SharedPreferences save_slot;
-    private WsdAudioCardCtrl dspControl;
 
     private int[] mSavedSettings;
-
 
     private void micValueSetBackToDefault()
     {
@@ -25,7 +21,7 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.MicInputGain.ordinal()] = 64;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.BassCutSwitch.ordinal()] = 0;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.BassCutFrequency.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.BassCutFrequency.ordinal()] = 1;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.NoiseSuppSwitch.ordinal()] = 0;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.NoiseSuppThreshold.ordinal()] = 3;
@@ -34,7 +30,7 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.CompressorSustain.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.CompressorOutLevel.ordinal()] = 32;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrequencyShift.ordinal()] = 10;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrequencyShift.ordinal()] = 0;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.MicInputPhaseReverse.ordinal()] = 0;
 
@@ -43,13 +39,13 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand1Type.ordinal()] = 0;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand7Type.ordinal()] = 0;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq.ordinal()] = 10;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand2Freq.ordinal()] = 16;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand3Freq.ordinal()] = 22;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand4Freq.ordinal()] = 28;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand5Freq.ordinal()] = 34;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand6Freq.ordinal()] = 40;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand7Freq.ordinal()] = 46;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq.ordinal()] = 12;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand2Freq.ordinal()] = 18;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand3Freq.ordinal()] = 24;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand4Freq.ordinal()] = 30;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand5Freq.ordinal()] = 36;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand6Freq.ordinal()] = 42;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand7Freq.ordinal()] = 48;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand1Q.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand2Q.ordinal()] = 7;
@@ -59,13 +55,13 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand6Q.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand7Q.ordinal()] = 7;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand2Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand3Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand4Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand5Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand6Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand7Gain.ordinal()] = 60;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand2Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand3Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand4Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand5Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand6Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MicPeqBand7Gain.ordinal()] = 0;
     }
 
     private void musicValueSetBackToDefault()
@@ -74,43 +70,43 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicInputGain.ordinal()] = 64;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.KeyControlSwitch.ordinal()] = 0;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.KeyControlPitch.ordinal()] = 12;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.KeyControlPitchFine.ordinal()] = 50;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.KeyControlPitch.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.KeyControlPitchFine.ordinal()] = 0;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicInputPhaseReverse.ordinal()] = 0;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqSwitch.ordinal()] = 0;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand1Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand2Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand3Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand4Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand5Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand6Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand7Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand8Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand9Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand10Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand11Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand12Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand13Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand14Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand15Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand16Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand17Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand18Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand19Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand20Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand21Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand22Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand23Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand24Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand25Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand26Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand27Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand28Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand29Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand30Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand31Gain.ordinal()] = 60;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand1Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand2Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand3Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand4Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand5Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand6Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand7Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand8Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand9Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand10Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand11Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand12Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand13Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand14Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand15Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand16Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand17Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand18Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand19Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand20Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand21Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand22Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand23Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand24Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand25Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand26Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand27Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand28Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand29Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand30Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.MusicGeqBand31Gain.ordinal()] = 0;
     }
 
     private void echoSetBackToDefault()
@@ -121,7 +117,7 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoLevel.ordinal()] = 127;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoTime.ordinal()] = 20;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoFeedbackLevel.ordinal()] = 50;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoTone.ordinal()] = 7;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoTone.ordinal()] = 64;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPan.ordinal()] = 64;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPreDelay.ordinal()] = 0;
 
@@ -147,11 +143,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoLowpassFreq.ordinal()] = 111;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoLowpassType.ordinal()] = 6;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand1Freq.ordinal()] = 10;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand2Freq.ordinal()] = 16;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand3Freq.ordinal()] = 22;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand4Freq.ordinal()] = 28;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand5Freq.ordinal()] = 34;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand1Freq.ordinal()] = 12;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand2Freq.ordinal()] = 18;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand3Freq.ordinal()] = 24;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand4Freq.ordinal()] = 30;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand5Freq.ordinal()] = 36;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand1Q.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand2Q.ordinal()] = 7;
@@ -159,11 +155,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand4Q.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand5Q.ordinal()] = 7;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand1Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand2Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand3Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand4Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand5Gain.ordinal()] = 60;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand1Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand2Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand3Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand4Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoPeqBand5Gain.ordinal()] = 0;
     }
 
     private void reverbSetBackToDefault()
@@ -173,7 +169,7 @@ public class AudioCardProfile {
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbType.ordinal()] = 2;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbTime.ordinal()] = 10;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbTone.ordinal()] = 7;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbTone.ordinal()] = 64;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPreDelay.ordinal()] = 0;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.EchoToReverb.ordinal()] = 0;
 
@@ -189,11 +185,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbLowpassFreq.ordinal()] = 111;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbLowpassType.ordinal()] = 6;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Freq.ordinal()] = 10;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand2Freq.ordinal()] = 16;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand3Freq.ordinal()] = 22;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand4Freq.ordinal()] = 28;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand5Freq.ordinal()] = 34;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Freq.ordinal()] = 12;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand2Freq.ordinal()] = 18;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand3Freq.ordinal()] = 24;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand4Freq.ordinal()] = 30;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand5Freq.ordinal()] = 36;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Q.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand2Q.ordinal()] = 7;
@@ -201,11 +197,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand4Q.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand5Q.ordinal()] = 7;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand2Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand3Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand4Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand5Gain.ordinal()] = 60;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand2Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand3Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand4Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.ReverbPeqBand5Gain.ordinal()] = 0;
     }
 
     private void rearSetBackToDefault()
@@ -232,11 +228,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputLowpassFreq.ordinal()] = 111;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputLowpassType.ordinal()] = 6;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Freq.ordinal()] = 10;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand2Freq.ordinal()] = 16;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand3Freq.ordinal()] = 22;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand4Freq.ordinal()] = 28;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand5Freq.ordinal()] = 34;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Freq.ordinal()] = 12;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand2Freq.ordinal()] = 18;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand3Freq.ordinal()] = 24;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand4Freq.ordinal()] = 30;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand5Freq.ordinal()] = 36;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Q.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand2Q.ordinal()] = 7;
@@ -244,11 +240,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand4Q.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand5Q.ordinal()] = 7;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand2Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand3Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand4Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand5Gain.ordinal()] = 60;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand2Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand3Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand4Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.RearOutputPeqBand5Gain.ordinal()] = 0;
     }
 
     private void frontSetBackToDefault()
@@ -272,11 +268,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputLowpassFreq.ordinal()] = 111;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputLowpassType.ordinal()] = 6;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand1Freq.ordinal()] = 10;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand2Freq.ordinal()] = 16;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand3Freq.ordinal()] = 22;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand4Freq.ordinal()] = 28;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand5Freq.ordinal()] = 34;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand1Freq.ordinal()] = 12;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand2Freq.ordinal()] = 18;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand3Freq.ordinal()] = 24;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand4Freq.ordinal()] = 30;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand5Freq.ordinal()] = 36;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand1Q.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand2Q.ordinal()] = 7;
@@ -284,11 +280,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand4Q.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand5Q.ordinal()] = 7;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand1Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand2Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand3Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand4Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand5Gain.ordinal()] = 60;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand1Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand2Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand3Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand4Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.FrontOutputPeqBand5Gain.ordinal()] = 0;
     }
 
     private void centerSetBackToDefault()
@@ -312,11 +308,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputLowpassFreq.ordinal()] = 111;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputLowpassType.ordinal()] = 6;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand1Freq.ordinal()] = 10;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand2Freq.ordinal()] = 16;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand3Freq.ordinal()] = 22;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand4Freq.ordinal()] = 28;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand5Freq.ordinal()] = 34;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand1Freq.ordinal()] = 12;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand2Freq.ordinal()] = 18;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand3Freq.ordinal()] = 24;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand4Freq.ordinal()] = 30;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand5Freq.ordinal()] = 36;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand1Q.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand2Q.ordinal()] = 7;
@@ -324,11 +320,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand4Q.ordinal()] = 7;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand5Q.ordinal()] = 7;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand1Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand2Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand3Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand4Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand5Gain.ordinal()] = 60;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand1Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand2Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand3Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand4Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.CenterOutputPeqBand5Gain.ordinal()] = 0;
     }
 
     private void subWooferSetBackToDefault()
@@ -352,11 +348,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputLowpassFreq.ordinal()] = 22;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputLowpassType.ordinal()] = 6;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand1Freq.ordinal()] = 4;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand2Freq.ordinal()] = 8;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand3Freq.ordinal()] = 11;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand4Freq.ordinal()] = 14;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand5Freq.ordinal()] = 18;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand1Freq.ordinal()] = 6;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand2Freq.ordinal()] = 10;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand3Freq.ordinal()] = 13;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand4Freq.ordinal()] = 16;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand5Freq.ordinal()] = 20;
 
         mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand1Q.ordinal()] = 19;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand2Q.ordinal()] = 19;
@@ -364,11 +360,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand4Q.ordinal()] = 19;
         mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand5Q.ordinal()] = 19;
 
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand1Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand2Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand3Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand4Gain.ordinal()] = 60;
-        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand5Gain.ordinal()] = 60;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand1Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand2Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand3Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand4Gain.ordinal()] = 0;
+        mSavedSettings[WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqBand5Gain.ordinal()] = 0;
 
         //subwoofer compressor
         mSavedSettings[WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch.ordinal()] = 1;
@@ -379,10 +375,11 @@ public class AudioCardProfile {
         mSavedSettings[WsdAudioCardCtrl.SettingsName.OutputCompressorPostgain.ordinal()] = 5;
     }
 
+
+
     public AudioCardProfile(SharedPreferences sp)
     {
         save_slot = sp;
-        dspControl = null;
         mSavedSettings = new int[WsdAudioCardCtrl.SettingsName.END.ordinal()+1];
         micValueSetBackToDefault();
         musicValueSetBackToDefault();
@@ -394,30 +391,20 @@ public class AudioCardProfile {
         subWooferSetBackToDefault();
     }
 
-    public AudioCardProfile(SharedPreferences sp,WsdAudioCardCtrl wsd)
+    public AudioCardProfile(AudioCardProfile source)
     {
-        save_slot = sp;
-        dspControl = wsd;
-        mSavedSettings = new int[WsdAudioCardCtrl.SettingsName.END.ordinal()+1];
-        micValueSetBackToDefault();
-        musicValueSetBackToDefault();
-        echoSetBackToDefault();
-        reverbSetBackToDefault();
-        rearSetBackToDefault();
-        frontSetBackToDefault();
-        centerSetBackToDefault();
-        subWooferSetBackToDefault();
+        System.arraycopy(source.mSavedSettings, 0, this.mSavedSettings, 0, this.mSavedSettings.length);
     }
 
     public int set(WsdAudioCardCtrl.SettingsName enumName,int value)
     {
-        if (enumName!=null) {
-            mSavedSettings[enumName.ordinal()] = value;
-            return 0;
-        } else {
-            Log.e(TAG,"no location to store value,because enumName is null");
+        if (enumName==WsdAudioCardCtrl.SettingsName.END) {
+            Log.e(TAG,"enumName END illegal");
             return -1;
         }
+
+        mSavedSettings[enumName.ordinal()] = value;
+        return 0;
     }
 
     public int set(AudioCardProfile source)
@@ -428,36 +415,30 @@ public class AudioCardProfile {
 
     public int set(int idx,int value)
     {
-        if (idx<WsdAudioCardCtrl.SettingsName.END.ordinal()) {
-            mSavedSettings[idx] = value;
-            return 0;
-        }
-        else
+        if (idx>=WsdAudioCardCtrl.SettingsName.END.ordinal() || idx<0)
         {
-            Log.e(TAG,"no location to store value,because idx:" + idx + "out of the settings END");
+            Log.e(TAG,"idx illegal");
             return -1;
         }
+        mSavedSettings[idx] = value;
+        return 0;
     }
 
     public int get(WsdAudioCardCtrl.SettingsName enumName)
     {
-        if (enumName!=null) {
-            return mSavedSettings[enumName.ordinal()];
-        }
-        Log.e(TAG,"the setting enumName is null");
-        return -1;
+        return mSavedSettings[enumName.ordinal()];
     }
 
     public int get(int idx)
     {
-        if (idx<WsdAudioCardCtrl.SettingsName.END.ordinal()) {
-            return mSavedSettings[idx];
+        if (idx>=WsdAudioCardCtrl.SettingsName.END.ordinal() || idx<0)
+        {
+            Log.e(TAG,"idx illegal");
+            return -1;
         }
 
-        Log.e(TAG,"the setting idx:" + idx + "not found");
-        return -1;
+        return mSavedSettings[idx];
     }
-
 
     public int save()
     {
@@ -482,37 +463,35 @@ public class AudioCardProfile {
 
     public int load()
     {
-        if (save_slot!=null && record_exist())
+        if (record_exist())
         {
             for (WsdAudioCardCtrl.SettingsName set : WsdAudioCardCtrl.SettingsName.values()) {
-                if (save_slot.getInt(set.name(), -1) != -1) {
-                    mSavedSettings[set.ordinal()] = save_slot.getInt(set.name(), -1);
-                    //Log.e(TAG,"[load]" +  set.name() + "=" +  mSavedSettings[set.ordinal()]);
+                if (save_slot.getInt(set.name(), 255) != 255) {
+                    mSavedSettings[set.ordinal()] = save_slot.getInt(set.name(), 255);
+                    Log.e(TAG,"[load]" +  set.name() + "=" +  mSavedSettings[set.ordinal()]);
                 }
             }
             return 0;
         }
         else
         {
-            Log.e(TAG,"save_slot is null || saved record is not exist,so just do nothing");
+            Log.e(TAG,"saved record is not exist,so just do nothing");
             return -1;
         }
     }
 
     public boolean record_exist()
     {
-        if (save_slot!=null)
-        {
-            if (save_slot.getInt(WsdAudioCardCtrl.SettingsName.END.name(), -1) != -1) {
-                Log.e(TAG,"record exist");
-                return true;
-            }
-            Log.e(TAG,"record not exist");
+        if (save_slot==null) {
+            Log.e(TAG, "save_slot is null,record not exist");
             return false;
         }
-        else
-        {
-            Log.e(TAG,"save_slot is null,record not exist");
+
+        if (save_slot.getInt(WsdAudioCardCtrl.SettingsName.END.name(), 255) != 255) {
+            Log.e(TAG,"record exist");
+            return true;
+        } else {
+            Log.e(TAG, "record not exist");
             return false;
         }
     }
@@ -528,7 +507,7 @@ public class AudioCardProfile {
         centerSetBackToDefault();
         subWooferSetBackToDefault();
     }
-
+/*
     public void setToDsp()
     {
         int a,b,c,d,e,f;
@@ -1027,26 +1006,6 @@ public class AudioCardProfile {
         e1 = old.get(WsdAudioCardCtrl.SettingsName.OutputCompressorPostgain.ordinal());
         if (a!=a1||b!=b1||c!=c1||d!=d1||e!=e1) dspControl.outputSubwoofferCompressorSetup(a,b,c,d,e);
     }
+*/
 
-    public void syncSettingsWithDsp()
-    {
-        if (dspControl!=null)
-        {
-            for (WsdAudioCardCtrl.SettingsName set : WsdAudioCardCtrl.SettingsName.values()) {
-                if (set.ordinal()!=WsdAudioCardCtrl.SettingsName.END.ordinal()) {
-                    int tmp = dspControl.getValueOfSetting(set);
-                    if (tmp!=255) {
-                        mSavedSettings[set.ordinal()] = tmp;
-                        //Log.e(TAG,"[from DSP]"+  set.name() + "=" +  mSavedSettings[set.ordinal()]);
-                    } else {
-                        Log.e(TAG,"[from DSP] could not get value of"+  set.name());
-                    }
-                }
-            }
-        }
-        else
-        {
-            Log.e(TAG,"dspControl is null,so just do nothing");
-        }
-    }
 }

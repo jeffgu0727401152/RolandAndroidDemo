@@ -15,6 +15,8 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.wsd.android.AudioCardProfile;
+import com.wsd.android.AudioCardSettings;
 import com.wsd.android.WsdAudioCardCtrl;
 
 import android.app.AlertDialog;
@@ -111,8 +113,7 @@ public class MainActivity extends Activity implements
     // record
     private int mRecordStartStop = 0;
 
-    private WsdAudioCardCtrl mAudioCardCtrl;
-    private AudioCardProfile mCardSettings;
+    private AudioCardSettings mCurrentSettings;
     private AudioCardProfile mCardProfile;
     private AudioCardProfile mCardProfile1;
     private AudioCardProfile mCardProfile2;
@@ -182,7 +183,10 @@ public class MainActivity extends Activity implements
         active_data_storage_path = Environment.getExternalStorageDirectory().getPath();
 
         Context ctx = this;
-        SharedPreferences settings = ctx.getSharedPreferences("SETTINGS", MODE_PRIVATE);
+        SharedPreferences settingSP = ctx.getSharedPreferences("SETTINGS", MODE_PRIVATE);
+        mCurrentSettings = new AudioCardSettings(settingSP);
+        mCurrentSettings.syncWithDsp();
+
         SharedPreferences profile = ctx.getSharedPreferences("PROFILE", MODE_PRIVATE);
         SharedPreferences profile1 = ctx.getSharedPreferences("PROFILE1", MODE_PRIVATE);
         SharedPreferences profile2 = ctx.getSharedPreferences("PROFILE2", MODE_PRIVATE);
@@ -193,26 +197,22 @@ public class MainActivity extends Activity implements
         SharedPreferences profileRecording = ctx.getSharedPreferences("RECORDING", MODE_PRIVATE);
         SharedPreferences profileEnjoy = ctx.getSharedPreferences("ENJOY", MODE_PRIVATE);
 
-        mAudioCardCtrl = new WsdAudioCardCtrl();
-        mAudioCardCtrl.audioCardInit();
-        mCardSettings = new AudioCardProfile(settings,mAudioCardCtrl);
-        mCardProfile = new AudioCardProfile(profile,mAudioCardCtrl);
-        mCardProfile1 = new AudioCardProfile(profile1,mAudioCardCtrl);
-        mCardProfile2 = new AudioCardProfile(profile2,mAudioCardCtrl);
-        mCardProfile3 = new AudioCardProfile(profile3,mAudioCardCtrl);
-        mCardProfile4 = new AudioCardProfile(profile4,mAudioCardCtrl);
-        mCardProfileProfessional = new AudioCardProfile(profileProfessional,mAudioCardCtrl);
-        mCardProfileStandard = new AudioCardProfile(profileStandard,mAudioCardCtrl);
-        mCardProfileRecording = new AudioCardProfile(profileRecording,mAudioCardCtrl);
-        mCardProfileEnjoy = new AudioCardProfile(profileEnjoy,mAudioCardCtrl);
-
-        mCardSettings.syncSettingsWithDsp();
+        mCardProfile = new AudioCardProfile(profile);
+        mCardProfile1 = new AudioCardProfile(profile1);
+        mCardProfile2 = new AudioCardProfile(profile2);
+        mCardProfile3 = new AudioCardProfile(profile3);
+        mCardProfile4 = new AudioCardProfile(profile4);
+        mCardProfileProfessional = new AudioCardProfile(profileProfessional);
+        mCardProfileStandard = new AudioCardProfile(profileStandard);
+        mCardProfileRecording = new AudioCardProfile(profileRecording);
+        mCardProfileEnjoy = new AudioCardProfile(profileEnjoy);
 
         setupMicInputPanel();
         setupMusicInputPanel();
         setupReverbPanel();
         setupEchoPanel();
         setupOutputPanel();
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -503,13 +503,12 @@ public class MainActivity extends Activity implements
                                 appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress] + 6.0f)*10)/10);
                             }
                             onSeekBarDataChanged(micInputLTextView,appendString);
-                            mAudioCardCtrl.micLRLevelSetup(progress,0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.MicInputL,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MicInputL,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MicInputL);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MicInputL);
+                if (tmpProgress!=255)
                 {
                     String appendString;
                     if (tmpProgress==0) {
@@ -544,13 +543,12 @@ public class MainActivity extends Activity implements
                                 appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress] + 6.0f)*10)/10);
                             }
                             onSeekBarDataChanged(micInputRTextView,appendString);
-                            mAudioCardCtrl.micLRLevelSetup(0xff,progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.MicInputR,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MicInputR,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MicInputR);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MicInputR);
+                if (tmpProgress!=255)
                 {
                     String appendString;
                     if (tmpProgress==0) {
@@ -585,13 +583,12 @@ public class MainActivity extends Activity implements
                                 appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress] + 6.0f)*10)/10);
                             }
                             onSeekBarDataChanged(micInputAuxTextView,appendString);
-                            mAudioCardCtrl.auxLevelSetup(progress,0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.MicInputAux,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MicInputAux,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MicInputAux);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MicInputAux);
+                if (tmpProgress!=255)
                 {
                     String appendString;
                     if (tmpProgress==0) {
@@ -627,13 +624,12 @@ public class MainActivity extends Activity implements
                                 appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress] + 6.0f)*10)/10);
                             }
                             onSeekBarDataChanged(micInputGainTextView,appendString);
-                            mAudioCardCtrl.micInputLevelSetup(progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.MicInputGain,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MicInputGain,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MicInputGain);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MicInputGain);
+                if (tmpProgress!=255)
                 {
                     String appendString;
                     if (tmpProgress==0) {
@@ -653,12 +649,11 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onCheckedChanged(CompoundButton button, boolean isChecked){
                         int enable = isChecked?1:0;
-                        mAudioCardCtrl.micBasscutEnable(enable);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.BassCutSwitch,enable);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.BassCutSwitch,enable);
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.BassCutSwitch);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.BassCutSwitch);
+                if (tmpProgress!=255)
                 {
                     bassCutSwitchCheckBox.setChecked(tmpProgress==0?false:true);
                 }
@@ -681,17 +676,17 @@ public class MainActivity extends Activity implements
                             if (progress==0) {
                                 appendString = " pass";
                             } else {
-                                appendString = " " + hzMap[progress-1] + "Hz";
+                                appendString = " " + hzMap[progress - 1] + "Hz";
                             }
                             onSeekBarDataChanged(bassCutFrequencyTextView,appendString);
-                            mAudioCardCtrl.micBasscutFrequencySetup(progress+1);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.BassCutFrequency,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.BassCutFrequency,progress + 1);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.BassCutFrequency);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.BassCutFrequency);
+                if (tmpProgress!=255)
                 {
+                    tmpProgress = tmpProgress-1;
                     String appendString;
                     if (tmpProgress==0) {
                         appendString = " pass";
@@ -712,12 +707,11 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                         int enable = isChecked?1:0;
-                        mAudioCardCtrl.micNoiseSuppEnable(enable);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.NoiseSuppSwitch,enable);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.NoiseSuppSwitch,enable);
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.NoiseSuppSwitch);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.NoiseSuppSwitch);
+                if (tmpProgress!=255)
                 {
                     noiseSuppSwitchCheckBox.setChecked(tmpProgress==0?false:true);
                 }
@@ -738,13 +732,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = String.format(" %d",progress);
                             onSeekBarDataChanged(noiseSuppThresholdTextView,appendString);
-                            mAudioCardCtrl.micNoiseThresholdSetup(progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.NoiseSuppThreshold,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.NoiseSuppThreshold,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.NoiseSuppThreshold);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.NoiseSuppThreshold);
+                if (tmpProgress!=255)
                 {
                     String appendString = String.format(" %d",tmpProgress);
                     onSeekBarDataChanged(noiseSuppThresholdTextView,appendString);
@@ -761,12 +754,11 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                         int enable = isChecked?1:0;
-                        mAudioCardCtrl.micCompressorEnable(enable);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.CompressorSwitch,enable);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.CompressorSwitch,enable);
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.CompressorSwitch);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.CompressorSwitch);
+                if (tmpProgress!=255)
                 {
                     compressorSwitchCheckbox.setChecked(tmpProgress==0?false:true);
                 }
@@ -787,13 +779,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = String.format(" %d",progress);
                             onSeekBarDataChanged(compressorSustainTextView,appendString);
-                            mAudioCardCtrl.micCompressorSetup(progress,0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.CompressorSustain,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.CompressorSustain,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.CompressorSustain);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.CompressorSustain);
+                if (tmpProgress!=255)
                 {
                     String appendString = String.format(" %d",tmpProgress);
                     onSeekBarDataChanged(compressorSustainTextView,appendString);
@@ -816,13 +807,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = String.format(" %d",progress);
                             onSeekBarDataChanged(compressorOutLevelTextView,appendString);
-                            mAudioCardCtrl.micCompressorSetup(0xff,progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.CompressorOutLevel,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.CompressorOutLevel,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.CompressorOutLevel);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.CompressorOutLevel);
+                if (tmpProgress!=255)
                 {
                     String appendString = String.format(" %d",tmpProgress);
                     onSeekBarDataChanged(compressorOutLevelTextView,appendString);
@@ -846,16 +836,16 @@ public class MainActivity extends Activity implements
                             seekBar.requestFocus();
                             seekBar.requestFocusFromTouch();
 
-                            String appendString = String.format(" %d",progress-10);
+                            String appendString = String.format(" %d",progress - 10);
                             onSeekBarDataChanged(frequencyShiftTextView,appendString);
-                            mAudioCardCtrl.micFrequencyShiftSetup(progress-10);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.FrequencyShift,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.FrequencyShift,progress - 10);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.FrequencyShift);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.FrequencyShift);
+                if (tmpProgress!=255)
                 {
+                    tmpProgress = tmpProgress + 10;
                     String appendString = String.format(" %d",tmpProgress-10);
                     onSeekBarDataChanged(frequencyShiftTextView,appendString);
                     frequencyShiftValueSeekBar.setProgress(tmpProgress);
@@ -866,12 +856,11 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                         int reverse = isChecked?1:0;
-                        mAudioCardCtrl.micDryOutputSetup(0xff,reverse);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.MicInputPhaseReverse,reverse);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MicInputPhaseReverse,reverse);
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MicInputPhaseReverse);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MicInputPhaseReverse);
+                if (tmpProgress!=255)
                 {
                     micInputPhaseReverseCheckbox.setChecked(tmpProgress==0?false:true);
                 }
@@ -881,12 +870,11 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                         int enable = isChecked?1:0;
-                        mAudioCardCtrl.mic7bandPeqEnable(enable);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.MicPeqSwitch,enable);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MicPeqSwitch,enable);
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MicPeqSwitch);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MicPeqSwitch);
+                if (tmpProgress!=255)
                 {
                     micPeqSwitchCheckBox.setChecked(tmpProgress==0?false:true);
                 }
@@ -910,15 +898,15 @@ public class MainActivity extends Activity implements
 
                                 int currentSeekBarId = seekBar.getId();
                                 int seekBarIdx = findArrayIdx(micPeqGainSeekBarID,currentSeekBarId);
-                                String appendString = String.format(" %.1fdB",(float)(progress-60)/5);
+                                String appendString = String.format(" %.1fdB",(float)(progress - 60)/5);
                                 onSeekBarDataChanged(micPeqGainTextView[seekBarIdx],appendString);
-                                mAudioCardCtrl.mic7bandPeqSetup(seekBarIdx+1,0xff,0xff,progress-60);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain.ordinal()+seekBarIdx,progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain.ordinal()+seekBarIdx,progress - 60);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain.ordinal()+i);
-                    if (tmpProgress!=-1) {
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain.ordinal()+i);
+                    if (tmpProgress!=255) {
+                        tmpProgress = tmpProgress + 60;
                         micPeqGainSeekBar[i].setProgress(tmpProgress);
                         String appendString = String.format(" %.1fdB",(float)(tmpProgress-60)/5);
                         onSeekBarDataChanged(micPeqGainTextView[i],appendString);
@@ -944,13 +932,13 @@ public class MainActivity extends Activity implements
                                 int seekBarIdx = findArrayIdx(micPeqFreqSeekBarID,currentSeekBarId);
                                 String appendString = " " + hzMap[progress] + "Hz";
                                 onSeekBarDataChanged(micPeqFreqTextView[seekBarIdx],appendString);
-                                mAudioCardCtrl.mic7bandPeqSetup(seekBarIdx+1,progress+2,0xff,0x7f);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq.ordinal()+seekBarIdx,progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq.ordinal()+seekBarIdx,progress + 2);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq.ordinal()+i);
-                    if (tmpProgress!=-1) {
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq.ordinal()+i);
+                    if (tmpProgress!=255) {
+                        tmpProgress = tmpProgress - 2;
                         micPeqFreqSeekBar[i].setProgress(tmpProgress);
                         String appendString = " " + hzMap[tmpProgress] + "Hz";
                         onSeekBarDataChanged(micPeqFreqTextView[i],appendString);
@@ -976,13 +964,12 @@ public class MainActivity extends Activity implements
                                 int seekBarIdx = findArrayIdx(micPeqQSeekBarID,CurrentSeekBarId);
                                 String appendString = " " + qMap[progress];
                                 onSeekBarDataChanged(micPeqQTextView[seekBarIdx],appendString);
-                                mAudioCardCtrl.mic7bandPeqSetup(seekBarIdx+1,0xff,progress,0x7f);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Q.ordinal()+seekBarIdx,progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Q.ordinal()+seekBarIdx,progress);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MicPeqBand1Q.ordinal()+i);
-                    if (tmpProgress!=-1) {
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MicPeqBand1Q.ordinal()+i);
+                    if (tmpProgress!=255) {
                         micPeqQSeekBar[i].setProgress(tmpProgress);
                         String appendString = " " + qMap[tmpProgress];
                         onSeekBarDataChanged(micPeqQTextView[i],appendString);
@@ -1026,13 +1013,12 @@ public class MainActivity extends Activity implements
                                 appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress]*10)/10));
                             }
                             onSeekBarDataChanged(musicInputAuxTextView,appendString);
-                            mAudioCardCtrl.auxLevelSetup(0xff,progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.MusicInputAux,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MusicInputAux,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MusicInputAux);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MusicInputAux);
+                if (tmpProgress!=255)
                 {
                     String appendString;
                     if (tmpProgress==0) {
@@ -1067,13 +1053,12 @@ public class MainActivity extends Activity implements
                                 appendString = String.format(" %.1fdB",mixerDbMap[progress] + 6.0f);
                             }
                             onSeekBarDataChanged(musicInputGainTextView,appendString);
-                            mAudioCardCtrl.musicInputLevelSetup(progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.MusicInputGain,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MusicInputGain,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MusicInputGain);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MusicInputGain);
+                if (tmpProgress!=255)
                 {
                     String appendString;
                     if (tmpProgress==0) {
@@ -1095,12 +1080,11 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                         int reverse = isChecked?1:0;
-                        mAudioCardCtrl.musicPhaseSetup(reverse);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.MusicInputPhaseReverse,reverse);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MusicInputPhaseReverse,reverse);
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MusicInputPhaseReverse);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MusicInputPhaseReverse);
+                if (tmpProgress!=255)
                 {
                     musicInputPhaseReverseCheckbox.setChecked(tmpProgress==0?false:true);
                 }
@@ -1109,12 +1093,11 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                         int enable = isChecked?1:0;
-                        mAudioCardCtrl.musicKeyctrlEnable(enable);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.KeyControlSwitch,enable);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.KeyControlSwitch,enable);
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.KeyControlSwitch);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.KeyControlSwitch);
+                if (tmpProgress!=255)
                 {
                     keyControlSwitchCheckbox.setChecked(tmpProgress==0?false:true);
                 }
@@ -1133,16 +1116,16 @@ public class MainActivity extends Activity implements
                             seekBar.requestFocus();
                             seekBar.requestFocusFromTouch();
 
-                            String appendString = String.format(" %d",progress-12);
+                            String appendString = String.format(" %d",progress - 12);
                             onSeekBarDataChanged(keyControlPitchTextView,appendString);
-                            mAudioCardCtrl.musicKeyctrlSetup(progress-12,0x7f);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.KeyControlPitch,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.KeyControlPitch,progress - 12);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.KeyControlPitch);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.KeyControlPitch);
+                if (tmpProgress!=255)
                 {
+                    tmpProgress = tmpProgress + 12;
                     String appendString = String.format(" %d",tmpProgress-12);
                     onSeekBarDataChanged(keyControlPitchTextView,appendString);
                     keyControlPitchSeekBar.setProgress(tmpProgress);
@@ -1162,16 +1145,16 @@ public class MainActivity extends Activity implements
                             seekBar.requestFocus();
                             seekBar.requestFocusFromTouch();
 
-                            String appendString = String.format(" %d",(progress-50));
+                            String appendString = String.format(" %d",(progress - 50));
                             onSeekBarDataChanged(keyControlPitchFineTextView,appendString);
-                            mAudioCardCtrl.musicKeyctrlSetup(0x7f,progress-50);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.KeyControlPitchFine,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.KeyControlPitchFine,progress - 50);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.KeyControlPitchFine);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.KeyControlPitchFine);
+                if (tmpProgress!=255)
                 {
+                    tmpProgress = tmpProgress + 50;
                     String appendString = String.format(" %d",(tmpProgress-50));
                     onSeekBarDataChanged(keyControlPitchFineTextView,appendString);
                     keyControlPitchFineSeekBar.setProgress(tmpProgress);
@@ -1182,12 +1165,11 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                         int enable = isChecked?1:0;
-                        mAudioCardCtrl.music31bandGeqEnable(enable);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.MusicGeqSwitch,enable);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MusicGeqSwitch,enable);
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MusicGeqSwitch);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MusicGeqSwitch);
+                if (tmpProgress!=255)
                 {
                     musicGeqSwitchCheckBox.setChecked(tmpProgress==0?false:true);
                 }
@@ -1212,16 +1194,16 @@ public class MainActivity extends Activity implements
 
                                 int CurrentSeekBarId = seekBar.getId();
                                 int SeekBarIdx = findArrayIdx(musicGeqSeekBarID,CurrentSeekBarId);
-                                String appendString = String.format(" %.1fdB",(float)(progress-60)/5);
+                                String appendString = String.format(" %.1fdB",(float)(progress - 60)/5);
                                 onSeekBarDataChanged(musicGeqTextView[SeekBarIdx],appendString);
-                                mAudioCardCtrl.music31bandGeqSetup(SeekBarIdx+1,progress-60);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.MusicGeqBand1Gain.ordinal()+SeekBarIdx,progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MusicGeqBand1Gain.ordinal()+SeekBarIdx,progress - 60);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MusicGeqBand1Gain.ordinal()+i);
-                    if (tmpProgress!=-1)
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MusicGeqBand1Gain.ordinal()+i);
+                    if (tmpProgress!=255)
                     {
+                        tmpProgress = tmpProgress + 60;
                         String appendString = String.format(" %.1fdB",(float)(tmpProgress-60)/5);
                         onSeekBarDataChanged(musicGeqTextView[i],appendString);
                         musicGeqSeekBar[i].setProgress(tmpProgress);
@@ -1272,13 +1254,12 @@ public class MainActivity extends Activity implements
                                 appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress]*10)/10));
                             }
                             onSeekBarDataChanged(echoInputTextView, appendString);
-                            mAudioCardCtrl.echoInputLevelSetup(progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoInput,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoInput,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoInput);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoInput);
+                if (tmpProgress!=255)
                 {
                     String appendString;
                     if (tmpProgress==0) {
@@ -1317,13 +1298,12 @@ public class MainActivity extends Activity implements
                                 appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress]*10)/10));
                             }
                             onSeekBarDataChanged(echoOutputTextView, appendString);
-                            mAudioCardCtrl.echoOutputSetup(progress, 0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoOutput,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoOutput,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoOutput);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoOutput);
+                if (tmpProgress!=255)
                 {
                     String appendString;
                     if (tmpProgress==0) {
@@ -1362,13 +1342,12 @@ public class MainActivity extends Activity implements
                                 appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress]*10)/10));
                             }
                             onSeekBarDataChanged(echoLevelTextView, appendString);
-                            mAudioCardCtrl.echoEffectsSetup(0xff,progress,0xff, 0xff, 0xff,0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoLevel,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoLevel,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoLevel);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoLevel);
+                if (tmpProgress!=255)
                 {
                     String appendString;
                     if (tmpProgress==0) {
@@ -1402,13 +1381,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = String.format(" %dms", progress*10);
                             onSeekBarDataChanged(echoTimeTextView, appendString);
-                            mAudioCardCtrl.echoEffectsSetup(progress,0xff,0xff,0xff,0xff,0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoTime,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoTime,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoTime);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoTime);
+                if (tmpProgress!=255)
                 {
                     String appendString = String.format(" %dms", tmpProgress*10);
                     onSeekBarDataChanged(echoTimeTextView, appendString);
@@ -1439,18 +1417,17 @@ public class MainActivity extends Activity implements
                             if (progress<64) {
                                 appendString = " " + "L" + (64-progress);
                             } else if (progress>64) {
-                                appendString = " " + (progress-64) + "R" ;
+                                appendString = " " + (progress - 64) + "R" ;
                             } else {
                                 appendString = "0";
                             }
                             onSeekBarDataChanged(echoPanTextView, appendString);
-                            mAudioCardCtrl.echoEffectsSetup(0xff,0xff,progress,0xff,0xff,0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoPan,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoPan,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoPan);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoPan);
+                if (tmpProgress!=255)
                 {
                     String appendString = "0";
                     if (tmpProgress<64) {
@@ -1486,13 +1463,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = String.format(" %d", progress);
                             onSeekBarDataChanged(echoFeedbackLevelTextView, appendString);
-                            mAudioCardCtrl.echoEffectsSetup(0xff,0xff,0xff,0xff,progress,0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoFeedbackLevel,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoFeedbackLevel,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoFeedbackLevel);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoFeedbackLevel);
+                if (tmpProgress!=255)
                 {
                     String appendString = String.format(" %d", tmpProgress);
                     onSeekBarDataChanged(echoFeedbackLevelTextView, appendString);
@@ -1519,16 +1495,16 @@ public class MainActivity extends Activity implements
                             seekBar.requestFocus();
                             seekBar.requestFocusFromTouch();
 
-                            String appendString = String.format(" %d", progress-7);
+                            String appendString = String.format(" %d", progress - 7);
                             onSeekBarDataChanged(echoToneTextView, appendString);
-                            mAudioCardCtrl.echoEffectsSetup(0xff, 0xff,0xff, progress+57,0xff,0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoTone,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoTone,progress + 57);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoTone);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoTone);
+                if (tmpProgress!=255)
                 {
+                    tmpProgress = tmpProgress - 57;
                     String appendString = String.format(" %d", tmpProgress-7);
                     onSeekBarDataChanged(echoToneTextView, appendString);
                     echoToneSeekBar.setProgress(tmpProgress);
@@ -1556,13 +1532,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = String.format(" %.1fms", (float)progress/2);
                             onSeekBarDataChanged(echoPreDelayTextView, appendString);
-                            mAudioCardCtrl.echoEffectsSetup(0xff, 0xff, 0xff,0xff,0xff,progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoPreDelay,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoPreDelay,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoPreDelay);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoPreDelay);
+                if (tmpProgress!=255)
                 {
                     String appendString = String.format(" %.1fms", (float)tmpProgress/2);
                     onSeekBarDataChanged(echoPreDelayTextView, appendString);
@@ -1574,12 +1549,11 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                         int reverse = isChecked ? 1 : 0;
-                        mAudioCardCtrl.echoOutputSetup(0xff, reverse);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoPhaseReverse,reverse);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoPhaseReverse,reverse);
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoPhaseReverse);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoPhaseReverse);
+                if (tmpProgress!=255)
                 {
                     echoPhaseReverseCheckbox.setChecked(tmpProgress==0?false:true);
                 }
@@ -1606,13 +1580,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = " " + highCutFreqMap[progress];
                             onSeekBarDataChanged(echoHighpassFreqTextView, appendString);
-                            mAudioCardCtrl.echoBandpassfilterSetup(0xff, progress, 0xff, 0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoHighpassFreq,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoHighpassFreq,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoHighpassFreq);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoHighpassFreq);
+                if (tmpProgress!=255)
                 {
                     String appendString = " " + highCutFreqMap[tmpProgress];
                     onSeekBarDataChanged(echoHighpassFreqTextView, appendString);
@@ -1641,13 +1614,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = " " + cutTypeMap[progress];
                             onSeekBarDataChanged(echoHighpassTypeTextView, appendString);
-                            mAudioCardCtrl.echoBandpassfilterSetup(progress, 0xff, 0xff, 0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoHighpassType,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoHighpassType,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoHighpassType);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoHighpassType);
+                if (tmpProgress!=255)
                 {
                     String appendString = " " + cutTypeMap[tmpProgress];
                     onSeekBarDataChanged(echoHighpassTypeTextView, appendString);
@@ -1676,13 +1648,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = " " + lowCutFreqMap[progress];
                             onSeekBarDataChanged(echoLowpassFreqTextView, appendString);
-                            mAudioCardCtrl.echoBandpassfilterSetup(0xff, 0xff, 0xff, progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoLowpassFreq,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoLowpassFreq,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoLowpassFreq);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoLowpassFreq);
+                if (tmpProgress!=255)
                 {
                     String appendString = " " + lowCutFreqMap[tmpProgress];
                     onSeekBarDataChanged(echoLowpassFreqTextView, appendString);
@@ -1711,13 +1682,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = " " + cutTypeMap[progress];
                             onSeekBarDataChanged(echoLowpassTypeTextView, appendString);
-                            mAudioCardCtrl.echoBandpassfilterSetup(0xff, 0xff, progress, 0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoLowpassType,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoLowpassType,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoLowpassType);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoLowpassType);
+                if (tmpProgress!=255)
                 {
                     String appendString = " " + cutTypeMap[tmpProgress];
                     onSeekBarDataChanged(echoLowpassTypeTextView, appendString);
@@ -1729,12 +1699,11 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                         int enable = isChecked ? 1 : 0;
-                        mAudioCardCtrl.echo5bandPeqEnable(enable);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoPeqSwitch,enable);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoPeqSwitch,enable);
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoPeqSwitch);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoPeqSwitch);
+                if (tmpProgress!=255)
                 {
                     echoPeqSwitchCheckBox.setChecked(tmpProgress==0?false:true);
                 }
@@ -1763,17 +1732,16 @@ public class MainActivity extends Activity implements
 
                                 int currentSeekBarId = seekBar.getId();
                                 int seekBarIdx = findArrayIdx(echoTapTimeSeekBarID, currentSeekBarId);
-                                double f = 0.781*(double)(progress+1);
+                                double f = 0.781*(double)(progress + 1);
                                 BigDecimal b = new BigDecimal(f);
                                 double f1 = b.setScale(1, RoundingMode.HALF_UP).doubleValue();
                                 String appendString = String.format(" %.1f%%", f1);
                                 onSeekBarDataChanged(echoTapTimeTextView[seekBarIdx], appendString);
-                                mAudioCardCtrl.echoTapEffectsSetup(seekBarIdx + 1, progress, 0xff, 0xff);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoTap1Time.ordinal() + seekBarIdx, progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoTap1Time.ordinal() + seekBarIdx, progress);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoTap1Time.ordinal() + i);
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoTap1Time.ordinal() + i);
                     if (tmpProgress != -1) {
                         echoTapTimeSeekBar[i].setProgress(tmpProgress);
                         double f = 0.781*(double)(tmpProgress+1);
@@ -1807,12 +1775,11 @@ public class MainActivity extends Activity implements
                                 int seekBarIdx = findArrayIdx(echoTapLevelSeekBarID, currentSeekBarId);
                                 String appendString = String.format(" %d", progress);
                                 onSeekBarDataChanged(echoTapLevelTextView[seekBarIdx], appendString);
-                                mAudioCardCtrl.echoTapEffectsSetup(seekBarIdx + 1, 0xff,progress, 0xff);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoTap1Level.ordinal() + seekBarIdx, progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoTap1Level.ordinal() + seekBarIdx, progress);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoTap1Level.ordinal() + i);
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoTap1Level.ordinal() + i);
                     if (tmpProgress != -1) {
                         echoTapLevelSeekBar[i].setProgress(tmpProgress);
                         String appendString = String.format(" %d", tmpProgress);
@@ -1845,17 +1812,16 @@ public class MainActivity extends Activity implements
                                 if (progress<64) {
                                     appendString = " " + "L" + (64-progress);
                                 } else if (progress>64) {
-                                    appendString = " " + (progress-64) + "R" ;
+                                    appendString = " " + (progress - 64) + "R" ;
                                 } else {
                                     appendString = "0";
                                 }
                                 onSeekBarDataChanged(echoTapPanTextView[seekBarIdx], appendString);
-                                mAudioCardCtrl.echoTapEffectsSetup(seekBarIdx + 1, 0xff, 0xff, progress);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoTap1Pan.ordinal() + seekBarIdx, progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoTap1Pan.ordinal() + seekBarIdx, progress);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoTap1Pan.ordinal() + i);
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoTap1Pan.ordinal() + i);
                     if (tmpProgress != -1) {
                         echoTapPanSeekBar[i].setProgress(tmpProgress);
                         String appendString = "0";
@@ -1896,13 +1862,13 @@ public class MainActivity extends Activity implements
                                 int seekBarIdx = findArrayIdx(echoPeqGainSeekBarID, currentSeekBarId);
                                 String appendString = String.format(" %.1fdB", (float) (progress - 60) / 5);
                                 onSeekBarDataChanged(echoPeqGainTextView[seekBarIdx], appendString);
-                                mAudioCardCtrl.echo5bandPeqSetup(seekBarIdx + 1, 0xff, 0xff, progress - 60);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Gain.ordinal()+seekBarIdx,progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Gain.ordinal()+seekBarIdx,progress - 60);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Gain.ordinal()+i);
-                    if (tmpProgress!=-1) {
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Gain.ordinal()+i);
+                    if (tmpProgress!=255) {
+                        tmpProgress = tmpProgress + 60;
                         echoPeqGainSeekBar[i].setProgress(tmpProgress);
                         String appendString = String.format(" %.1fdB",(float)(tmpProgress-60)/5);
                         onSeekBarDataChanged(echoPeqGainTextView[i],appendString);
@@ -1932,13 +1898,13 @@ public class MainActivity extends Activity implements
                                 int seekBarIdx = findArrayIdx(echoPeqFreqSeekBarID, currentSeekBarId);
                                 String appendString = " " + hzMap[progress] + "Hz";
                                 onSeekBarDataChanged(echoPeqFreqTextView[seekBarIdx], appendString);
-                                mAudioCardCtrl.echo5bandPeqSetup(seekBarIdx + 1, progress + 2, 0xff, 0x7f);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Freq.ordinal()+seekBarIdx,progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Freq.ordinal()+seekBarIdx,progress + 2);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Freq.ordinal()+i);
-                    if (tmpProgress!=-1) {
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Freq.ordinal()+i);
+                    if (tmpProgress!=255) {
+                        tmpProgress = tmpProgress - 2;
                         echoPeqFreqSeekBar[i].setProgress(tmpProgress);
                         String appendString = " " + hzMap[tmpProgress] + "Hz";
                         onSeekBarDataChanged(echoPeqFreqTextView[i],appendString);
@@ -1968,13 +1934,12 @@ public class MainActivity extends Activity implements
                                 int seekBarIdx = findArrayIdx(echoPeqQSeekBarID, CurrentSeekBarId);
                                 String appendString = " " + qMap[progress];
                                 onSeekBarDataChanged(echoPeqQTextView[seekBarIdx], appendString);
-                                mAudioCardCtrl.echo5bandPeqSetup( seekBarIdx + 1, 0xff, progress, 0x7f);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Q.ordinal()+seekBarIdx,progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Q.ordinal()+seekBarIdx,progress);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Q.ordinal()+i);
-                    if (tmpProgress!=-1) {
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Q.ordinal()+i);
+                    if (tmpProgress!=255) {
                         echoPeqQSeekBar[i].setProgress(tmpProgress);
                         String appendString = " " + qMap[tmpProgress];
                         onSeekBarDataChanged(echoPeqQTextView[i],appendString);
@@ -2023,13 +1988,12 @@ public class MainActivity extends Activity implements
                                 appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress]*10)/10));
                             }
                             onSeekBarDataChanged(reverbInputTextView, appendString);
-                            mAudioCardCtrl.reverbInputLevelSetup(progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbInput, progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbInput, progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbInput);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbInput);
+                if (tmpProgress!=255)
                 {
                     String appendString;
                     if (tmpProgress == 0) {
@@ -2068,13 +2032,12 @@ public class MainActivity extends Activity implements
                                 appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress]*10)/10));
                             }
                             onSeekBarDataChanged(reverbOutputTextView, appendString);
-                            mAudioCardCtrl.reverbOutputSetup(progress, 0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbOutput, progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbOutput, progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbOutput);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbOutput);
+                if (tmpProgress!=255)
                 {
                     String appendString;
                     if (tmpProgress == 0) {
@@ -2125,13 +2088,12 @@ public class MainActivity extends Activity implements
                             }
 
                             onSeekBarDataChanged(reverbTypeTextView, appendString);
-                            mAudioCardCtrl.reverbEffectsSetup(progress,0xff, 0xff, 0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbType, progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbType, progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbType);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbType);
+                if (tmpProgress!=255)
                 {
                     String appendString = "";
                     switch(tmpProgress)
@@ -2179,13 +2141,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = String.format(" %dms", progress);
                             onSeekBarDataChanged(reverbTimeTextView, appendString);
-                            mAudioCardCtrl.reverbEffectsSetup(0xff, progress, 0xff,0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbTime, progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbTime, progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbTime);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbTime);
+                if (tmpProgress!=255)
                 {
                     String appendString = String.format(" %dms", tmpProgress);
                     onSeekBarDataChanged(reverbTimeTextView, appendString);
@@ -2212,16 +2173,16 @@ public class MainActivity extends Activity implements
                             seekBar.requestFocus();
                             seekBar.requestFocusFromTouch();
 
-                            String appendString = String.format(" %d", progress-7);
+                            String appendString = String.format(" %d", progress - 7);
                             onSeekBarDataChanged(reverbToneTextView, appendString);
-                            mAudioCardCtrl.reverbEffectsSetup(0xff, 0xff, progress+57,0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbTone, progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbTone, progress + 57);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbTone);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbTone);
+                if (tmpProgress!=255)
                 {
+                    tmpProgress = tmpProgress - 57;
                     String appendString = String.format(" %d", tmpProgress-7);
                     onSeekBarDataChanged(reverbToneTextView, appendString);
                     reverbToneSeekBar.setProgress(tmpProgress);
@@ -2249,13 +2210,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = String.format(" %dms", progress);
                             onSeekBarDataChanged(reverbPreDelayTextView, appendString);
-                            mAudioCardCtrl.reverbEffectsSetup(0xff, 0xff, 0xff,progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbPreDelay, progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbPreDelay, progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbPreDelay);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbPreDelay);
+                if (tmpProgress!=255)
                 {
                     String appendString = String.format(" %dms", tmpProgress);
                     onSeekBarDataChanged(reverbPreDelayTextView, appendString);
@@ -2285,13 +2245,12 @@ public class MainActivity extends Activity implements
                                 appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress]*10)/10));
                             }
                             onSeekBarDataChanged(echoToReverbTextView, appendString);
-                            mAudioCardCtrl.echoToReverbLevelSetup(progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.EchoToReverb, progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.EchoToReverb, progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.EchoToReverb);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.EchoToReverb);
+                if (tmpProgress!=255)
                 {
                     String appendString;
                     if (tmpProgress == 0) {
@@ -2308,12 +2267,11 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                         int reverse = isChecked ? 1 : 0;
-                        mAudioCardCtrl.reverbOutputSetup(0xff, reverse);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbPhaseReverse,reverse);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbPhaseReverse,reverse);
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbPhaseReverse);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbPhaseReverse);
+                if (tmpProgress!=255)
                 {
                     reverbPhaseReverseCheckbox.setChecked(tmpProgress==0?false:true);
                 }
@@ -2340,13 +2298,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = " " + highCutFreqMap[progress];
                             onSeekBarDataChanged(reverbHighpassFreqTextView, appendString);
-                            mAudioCardCtrl.reverbBandpassfilterSetup(0xff, progress, 0xff, 0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbHighpassFreq,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbHighpassFreq,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbHighpassFreq);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbHighpassFreq);
+                if (tmpProgress!=255)
                 {
                     String appendString = " " + highCutFreqMap[tmpProgress];
                     onSeekBarDataChanged(reverbHighpassFreqTextView, appendString);
@@ -2375,13 +2332,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = " " + cutTypeMap[progress];
                             onSeekBarDataChanged(reverbHighpassTypeTextView, appendString);
-                            mAudioCardCtrl.reverbBandpassfilterSetup(progress, 0xff, 0xff, 0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbHighpassType,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbHighpassType,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbHighpassType);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbHighpassType);
+                if (tmpProgress!=255)
                 {
                     String appendString = " " + cutTypeMap[tmpProgress];
                     onSeekBarDataChanged(reverbHighpassTypeTextView, appendString);
@@ -2410,13 +2366,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = " " + lowCutFreqMap[progress];
                             onSeekBarDataChanged(reverbLowpassFreqTextView, appendString);
-                            mAudioCardCtrl.reverbBandpassfilterSetup(0xff, 0xff, 0xff, progress);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbLowpassFreq,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbLowpassFreq,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbLowpassFreq);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbLowpassFreq);
+                if (tmpProgress!=255)
                 {
                     String appendString = " " + lowCutFreqMap[tmpProgress];
                     onSeekBarDataChanged(reverbLowpassFreqTextView, appendString);
@@ -2445,13 +2400,12 @@ public class MainActivity extends Activity implements
 
                             String appendString = " " + cutTypeMap[progress];
                             onSeekBarDataChanged(reverbLowpassTypeTextView, appendString);
-                            mAudioCardCtrl.reverbBandpassfilterSetup(0xff, 0xff, progress, 0xff);
-                            mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbLowpassType,progress);
+                            mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbLowpassType,progress);
                         }
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbLowpassType);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbLowpassType);
+                if (tmpProgress!=255)
                 {
                     String appendString = " " + cutTypeMap[tmpProgress];
                     onSeekBarDataChanged(reverbLowpassTypeTextView, appendString);
@@ -2463,12 +2417,11 @@ public class MainActivity extends Activity implements
                     @Override
                     public void onCheckedChanged(CompoundButton button, boolean isChecked) {
                         int enable = isChecked ? 1 : 0;
-                        mAudioCardCtrl.reverb5bandPeqEnable(enable);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbPeqSwitch,enable);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbPeqSwitch,enable);
                     }
                 });
-                tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbPeqSwitch);
-                if (tmpProgress!=-1)
+                tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbPeqSwitch);
+                if (tmpProgress!=255)
                 {
                     reverbPeqSwitchCheckBox.setChecked(tmpProgress==0?false:true);
                 }
@@ -2498,13 +2451,13 @@ public class MainActivity extends Activity implements
                                 int seekBarIdx = findArrayIdx(reverbPeqGainSeekBarID, currentSeekBarId);
                                 String appendString = String.format(" %.1fdB", (float) (progress - 60) / 5);
                                 onSeekBarDataChanged(reverbPeqGainTextView[seekBarIdx], appendString);
-                                mAudioCardCtrl.reverb5bandPeqSetup(seekBarIdx + 1, 0xff, 0xff, progress - 60);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Gain.ordinal()+seekBarIdx,progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Gain.ordinal()+seekBarIdx,progress - 60);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Gain.ordinal()+i);
-                    if (tmpProgress!=-1) {
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Gain.ordinal()+i);
+                    if (tmpProgress!=255) {
+                        tmpProgress = tmpProgress + 60;
                         reverbPeqGainSeekBar[i].setProgress(tmpProgress);
                         String appendString = String.format(" %.1fdB",(float)(tmpProgress-60)/5);
                         onSeekBarDataChanged(reverbPeqGainTextView[i],appendString);
@@ -2534,13 +2487,13 @@ public class MainActivity extends Activity implements
                                 int seekBarIdx = findArrayIdx(reverbPeqFreqSeekBarID, currentSeekBarId);
                                 String appendString = " " + hzMap[progress] + "Hz";
                                 onSeekBarDataChanged(reverbPeqFreqTextView[seekBarIdx], appendString);
-                                mAudioCardCtrl.reverb5bandPeqSetup(seekBarIdx + 1, progress + 2, 0xff, 0x7f);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Freq.ordinal()+seekBarIdx,progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Freq.ordinal()+seekBarIdx,progress + 2);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Freq.ordinal()+i);
-                    if (tmpProgress!=-1) {
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Freq.ordinal()+i);
+                    if (tmpProgress!=255) {
+                        tmpProgress = tmpProgress -2;
                         reverbPeqFreqSeekBar[i].setProgress(tmpProgress);
                         String appendString = " " + hzMap[tmpProgress] + "Hz";
                         onSeekBarDataChanged(reverbPeqFreqTextView[i],appendString);
@@ -2570,13 +2523,12 @@ public class MainActivity extends Activity implements
                                 int seekBarIdx = findArrayIdx(reverbPeqQSeekBarID, CurrentSeekBarId);
                                 String appendString = " " + qMap[progress];
                                 onSeekBarDataChanged(reverbPeqQTextView[seekBarIdx], appendString);
-                                mAudioCardCtrl.reverb5bandPeqSetup( seekBarIdx + 1, 0xff, progress, 0x7f);
-                                mCardSettings.set(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Q.ordinal()+seekBarIdx,progress);
+                                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Q.ordinal()+seekBarIdx,progress);
                             }
                         }
                     });
-                    tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Q.ordinal()+i);
-                    if (tmpProgress!=-1) {
+                    tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Q.ordinal()+i);
+                    if (tmpProgress!=255) {
                         reverbPeqQSeekBar[i].setProgress(tmpProgress);
                         String appendString = " " + qMap[tmpProgress];
                         onSeekBarDataChanged(reverbPeqQTextView[i],appendString);
@@ -2614,13 +2566,12 @@ public class MainActivity extends Activity implements
                         appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress]*10)/10));
                     }
                     onSeekBarDataChanged(outputDirectTextView,appendString);
-                    mAudioCardCtrl.mixerMixSetup(channel,progress,0xff,0xff,0xff);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputDirect.ordinal() + settingsPerChannel*(channel-1),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputDirect.ordinal() + settingsPerChannel*(channel-1),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputDirect.ordinal() + settingsPerChannel*(channel-1));
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputDirect.ordinal() + settingsPerChannel*(channel-1));
+        if (tmpProgress!=255) {
             String appendString;
             if (tmpProgress==0) {
                 appendString = " Mute";
@@ -2654,13 +2605,12 @@ public class MainActivity extends Activity implements
                         appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress]*10)/10));
                     }
                     onSeekBarDataChanged(outputEchoTextView,appendString);
-                    mAudioCardCtrl.mixerMixSetup(channel,0xff,progress,0xff,0xff);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputEcho.ordinal() + settingsPerChannel*(channel-1),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputEcho.ordinal() + settingsPerChannel*(channel-1),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputEcho.ordinal() + settingsPerChannel*(channel-1));
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputEcho.ordinal() + settingsPerChannel*(channel-1));
+        if (tmpProgress!=255) {
             String appendString;
             if (tmpProgress==0) {
                 appendString = " Mute";
@@ -2694,13 +2644,12 @@ public class MainActivity extends Activity implements
                         appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress]*10)/10));
                     }
                     onSeekBarDataChanged(outputReverbTextView,appendString);
-                    mAudioCardCtrl.mixerMixSetup(channel,0xff,0xff,progress,0xff);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputReverb.ordinal() + settingsPerChannel*(channel-1),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputReverb.ordinal() + settingsPerChannel*(channel-1),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputReverb.ordinal() + settingsPerChannel*(channel-1));
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputReverb.ordinal() + settingsPerChannel*(channel-1));
+        if (tmpProgress!=255) {
             String appendString;
             if (tmpProgress==0) {
                 appendString = " Mute";
@@ -2734,13 +2683,12 @@ public class MainActivity extends Activity implements
                         appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress]*10)/10));
                     }
                     onSeekBarDataChanged(outputMusicTextView,appendString);
-                    mAudioCardCtrl.mixerMixSetup(channel,0xff,0xff,0xff,progress);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputMusic.ordinal() + settingsPerChannel*(channel-1),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputMusic.ordinal() + settingsPerChannel*(channel-1),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputMusic.ordinal() + settingsPerChannel*(channel-1));
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputMusic.ordinal() + settingsPerChannel*(channel-1));
+        if (tmpProgress!=255) {
             String appendString;
             if (tmpProgress==0) {
                 appendString = " Mute";
@@ -2774,13 +2722,12 @@ public class MainActivity extends Activity implements
                         appendString = String.format(" %.1fdB",Math.floor((mixerDbMap[progress]*10)/10));
                     }
                     onSeekBarDataChanged(outputGainTextView,appendString);
-                    mAudioCardCtrl.outputSetup(channel,progress,0xff,0xff);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputGain.ordinal() + settingsPerChannel*(channel-1),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputGain.ordinal() + settingsPerChannel*(channel-1),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputGain.ordinal() + settingsPerChannel*(channel-1));
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputGain.ordinal() + settingsPerChannel*(channel-1));
+        if (tmpProgress!=255) {
             String appendString;
             if (tmpProgress==0) {
                 appendString = " Mute";
@@ -2809,13 +2756,12 @@ public class MainActivity extends Activity implements
 
                     String appendString = String.format(" %.1fms",(float)progress/2);
                     onSeekBarDataChanged(outputDelayTextView,appendString);
-                    mAudioCardCtrl.outputSetup(channel,0xff,progress,0xff);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputDelay.ordinal() + settingsPerChannel*(channel-1),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputDelay.ordinal() + settingsPerChannel*(channel-1),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputDelay.ordinal() + settingsPerChannel*(channel-1));
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputDelay.ordinal() + settingsPerChannel*(channel-1));
+        if (tmpProgress!=255) {
             String appendString = String.format(" %.1fms",(float)tmpProgress/2);
             onSeekBarDataChanged(outputDelayTextView,appendString);
             outputDelaySeekBar.setProgress(tmpProgress);
@@ -2826,12 +2772,11 @@ public class MainActivity extends Activity implements
             @Override
             public void onCheckedChanged(CompoundButton button, boolean isChecked){
                 int reverse = isChecked?1:0;
-                mAudioCardCtrl.outputSetup(channel,0xff,0xff,reverse);
-                mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputPhaseReverse.ordinal() + settingsPerChannel*(channel-1),reverse);
+                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputPhaseReverse.ordinal() + settingsPerChannel*(channel-1),reverse);
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputPhaseReverse.ordinal() + settingsPerChannel*(channel-1));
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputPhaseReverse.ordinal() + settingsPerChannel*(channel-1));
+        if (tmpProgress!=255) {
             outputPhaseReverseCheckbox.setChecked(tmpProgress==0?false:true);
         }
 
@@ -2851,12 +2796,11 @@ public class MainActivity extends Activity implements
             @Override
             public void onCheckedChanged(CompoundButton button, boolean isChecked){
                 int enable = isChecked?1:0;
-                mAudioCardCtrl.outputSubwoofferCompressorEnable(enable);
-                mCardSettings.set(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch.ordinal(),enable);
+                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch.ordinal(),enable);
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch.ordinal());
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch.ordinal());
+        if (tmpProgress!=255) {
             outputCompressorSwitchCheckbox.setChecked(tmpProgress==0?false:true);
         }
 
@@ -2876,13 +2820,12 @@ public class MainActivity extends Activity implements
 
                     String appendString = " " + progress + "ms";
                     onSeekBarDataChanged(outputCompressorAttackTextView,appendString);
-                    mAudioCardCtrl.outputSubwoofferCompressorSetup(progress,0xff,0xff,0xff,0xff);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.OutputCompressorAttack.ordinal(),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.OutputCompressorAttack.ordinal(),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.OutputCompressorAttack.ordinal());
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.OutputCompressorAttack.ordinal());
+        if (tmpProgress!=255) {
             String appendString = " " + tmpProgress + "ms";
             onSeekBarDataChanged(outputCompressorAttackTextView,appendString);
             outputCompressorAttackSeekBar.setProgress(tmpProgress);
@@ -2904,13 +2847,12 @@ public class MainActivity extends Activity implements
 
                     String appendString = " " + progress + "ms";
                     onSeekBarDataChanged(outputCompressorReleaseTextView,appendString);
-                    mAudioCardCtrl.outputSubwoofferCompressorSetup(0xff,progress,0xff,0xff,0xff);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.OutputCompressorRelease.ordinal(),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.OutputCompressorRelease.ordinal(),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.OutputCompressorRelease.ordinal());
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.OutputCompressorRelease.ordinal());
+        if (tmpProgress!=255) {
             String appendString = " " + tmpProgress + "ms";
             onSeekBarDataChanged(outputCompressorReleaseTextView,appendString);
             outputCompressorReleaseSeekBar.setProgress(tmpProgress);
@@ -2932,13 +2874,12 @@ public class MainActivity extends Activity implements
 
                     String appendString = " " + progress;
                     onSeekBarDataChanged(outputCompressorThresholdTextView,appendString);
-                    mAudioCardCtrl.outputSubwoofferCompressorSetup(0xff,0xff,progress,0xff,0xff);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.OutputCompressorThreshold.ordinal(),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.OutputCompressorThreshold.ordinal(),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.OutputCompressorThreshold.ordinal());
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.OutputCompressorThreshold.ordinal());
+        if (tmpProgress!=255) {
             String appendString = " " + tmpProgress;
             onSeekBarDataChanged(outputCompressorThresholdTextView,appendString);
             outputCompressorThresholdSeekBar.setProgress(tmpProgress);
@@ -2960,13 +2901,12 @@ public class MainActivity extends Activity implements
 
                     String appendString = " " + compressorRatioMap[progress];
                     onSeekBarDataChanged(outputCompressorRatioTextView,appendString);
-                    mAudioCardCtrl.outputSubwoofferCompressorSetup(0xff,0xff,0xff,progress,0xff);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.OutputCompressorRatio.ordinal(),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.OutputCompressorRatio.ordinal(),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.OutputCompressorRatio.ordinal());
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.OutputCompressorRatio.ordinal());
+        if (tmpProgress!=255) {
             String appendString = " " + compressorRatioMap[tmpProgress];
             onSeekBarDataChanged(outputCompressorRatioTextView,appendString);
             outputCompressorRatioSeekBar.setProgress(tmpProgress);
@@ -2988,13 +2928,12 @@ public class MainActivity extends Activity implements
 
                     String appendString = " " + progress + "dB";
                     onSeekBarDataChanged(outputCompressorPostgainTextView,appendString);
-                    mAudioCardCtrl.outputSubwoofferCompressorSetup(0xff,0xff,0xff,0xff,progress);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.OutputCompressorPostgain.ordinal(),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.OutputCompressorPostgain.ordinal(),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.OutputCompressorPostgain.ordinal());
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.OutputCompressorPostgain.ordinal());
+        if (tmpProgress!=255) {
             String appendString = " " + tmpProgress + "dB";
             onSeekBarDataChanged(outputCompressorPostgainTextView,appendString);
             outputCompressorPostgainSeekBar.setProgress(tmpProgress);
@@ -3018,13 +2957,12 @@ public class MainActivity extends Activity implements
 
                     String appendString = " " + highCutFreqMap[progress];
                     onSeekBarDataChanged(outputHighpassFreqTextView,appendString);
-                    mAudioCardCtrl.outputBandpassfilterSetup(channel,0xff,progress,0xff,0xff);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputHighpassFreq.ordinal() + settingsPerChannel*(channel-1),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputHighpassFreq.ordinal() + settingsPerChannel*(channel-1),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputHighpassFreq.ordinal() + settingsPerChannel*(channel-1));
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputHighpassFreq.ordinal() + settingsPerChannel*(channel-1));
+        if (tmpProgress!=255) {
             String appendString = " " + highCutFreqMap[tmpProgress];
             onSeekBarDataChanged(outputHighpassFreqTextView,appendString);
             outputHighpassFreqSeekBar.setProgress(tmpProgress);
@@ -3048,13 +2986,12 @@ public class MainActivity extends Activity implements
 
                     String appendString = " " + cutTypeMap[progress];
                     onSeekBarDataChanged(outputHighpassTypeTextView,appendString);
-                    mAudioCardCtrl.outputBandpassfilterSetup(channel,progress,0xff,0xff,0xff);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputHighpassType.ordinal() + settingsPerChannel*(channel-1),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputHighpassType.ordinal() + settingsPerChannel*(channel-1),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputHighpassType.ordinal() + settingsPerChannel*(channel-1));
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputHighpassType.ordinal() + settingsPerChannel*(channel-1));
+        if (tmpProgress!=255) {
             String appendString = " " + cutTypeMap[tmpProgress];
             onSeekBarDataChanged(outputHighpassTypeTextView,appendString);
             outputHighpassTypeSeekBar.setProgress(tmpProgress);
@@ -3078,13 +3015,12 @@ public class MainActivity extends Activity implements
 
                     String appendString = " " + lowCutFreqMap[progress];
                     onSeekBarDataChanged(outputLowpassFreqTextView,appendString);
-                    mAudioCardCtrl.outputBandpassfilterSetup(channel,0xff,0xff,0xff,progress);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputLowpassFreq.ordinal() + settingsPerChannel*(channel-1),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputLowpassFreq.ordinal() + settingsPerChannel*(channel-1),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputLowpassFreq.ordinal() + settingsPerChannel*(channel-1));
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputLowpassFreq.ordinal() + settingsPerChannel*(channel-1));
+        if (tmpProgress!=255) {
             String appendString = " " + lowCutFreqMap[tmpProgress];
             onSeekBarDataChanged(outputLowpassFreqTextView,appendString);
             outputLowpassFreqSeekBar.setProgress(tmpProgress);
@@ -3108,13 +3044,12 @@ public class MainActivity extends Activity implements
 
                     String appendString = " " + cutTypeMap[progress];
                     onSeekBarDataChanged(outputLowpassTypeTextView,appendString);
-                    mAudioCardCtrl.outputBandpassfilterSetup(channel,0xff,0xff,progress,0xff);
-                    mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputLowpassType.ordinal() + settingsPerChannel*(channel-1),progress);
+                    mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputLowpassType.ordinal() + settingsPerChannel*(channel-1),progress);
                 }
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputLowpassType.ordinal() + settingsPerChannel*(channel-1));
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputLowpassType.ordinal() + settingsPerChannel*(channel-1));
+        if (tmpProgress!=255) {
             String appendString = " " + cutTypeMap[tmpProgress];
             onSeekBarDataChanged(outputLowpassTypeTextView,appendString);
             outputLowpassTypeSeekBar.setProgress(tmpProgress);
@@ -3125,12 +3060,11 @@ public class MainActivity extends Activity implements
             @Override
             public void onCheckedChanged(CompoundButton button, boolean isChecked){
                 int enable = isChecked?1:0;
-                mAudioCardCtrl.output5bandPeqEnable(channel,enable);
-                mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputPeqSwitch.ordinal() + settingsPerChannel*(channel-1),enable);
+                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputPeqSwitch.ordinal() + settingsPerChannel*(channel-1),enable);
             }
         });
-        tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqSwitch.ordinal() + settingsPerChannel*(channel-1));
-        if (tmpProgress!=-1) {
+        tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqSwitch.ordinal() + settingsPerChannel*(channel-1));
+        if (tmpProgress!=255) {
             outputPeqSwitchCheckBox.setChecked(tmpProgress==0?false:true);
         }
 
@@ -3153,15 +3087,15 @@ public class MainActivity extends Activity implements
 
                         int currentSeekBarId = seekBar.getId();
                         int seekBarIdx = findArrayIdx(outputPeqGainSeekBarID,currentSeekBarId);
-                        String appendString = String.format(" %.1fdB",(float)(progress-60)/5);
+                        String appendString = String.format(" %.1fdB",(float)(progress - 60)/5);
                         onSeekBarDataChanged(outputPeqGainTextView[seekBarIdx],appendString);
-                        mAudioCardCtrl.output5bandPeqSetup(channel,seekBarIdx+1,0xff,0xff,progress-60);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Gain.ordinal() + settingsPerChannel*(channel-1) + seekBarIdx,progress);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Gain.ordinal() + settingsPerChannel*(channel-1) + seekBarIdx,progress - 60);
                     }
                 }
             });
-            tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Gain.ordinal() + settingsPerChannel*(channel-1) + i);
-            if (tmpProgress!=-1) {
+            tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Gain.ordinal() + settingsPerChannel*(channel-1) + i);
+            if (tmpProgress!=255) {
+                tmpProgress = tmpProgress + 60;
                 String appendString = String.format(" %.1fdB",(float)(tmpProgress-60)/5);
                 onSeekBarDataChanged(outputPeqGainTextView[i],appendString);
                 outputPeqGainSeekBar[i].setProgress(tmpProgress);
@@ -3187,13 +3121,13 @@ public class MainActivity extends Activity implements
                         int seekBarIdx = findArrayIdx(outputPeqFreqSeekBarID,currentSeekBarId);
                         String appendString = " " + hzMap[progress] + "Hz";
                         onSeekBarDataChanged(outputPeqFreqTextView[seekBarIdx],appendString);
-                        mAudioCardCtrl.output5bandPeqSetup(channel,seekBarIdx+1,progress+2,0xff,0x7f);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Freq.ordinal() + settingsPerChannel*(channel-1) + seekBarIdx,progress);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Freq.ordinal() + settingsPerChannel*(channel-1) + seekBarIdx,progress + 2);
                     }
                 }
             });
-            tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Freq.ordinal() + settingsPerChannel*(channel-1) + i);
-            if (tmpProgress!=-1) {
+            tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Freq.ordinal() + settingsPerChannel*(channel-1) + i);
+            if (tmpProgress!=255) {
+                tmpProgress = tmpProgress - 2;
                 String appendString = " " + hzMap[tmpProgress] + "Hz";
                 onSeekBarDataChanged(outputPeqFreqTextView[i],appendString);
                 outputPeqFreqSeekBar[i].setProgress(tmpProgress);
@@ -3219,13 +3153,12 @@ public class MainActivity extends Activity implements
                         int seekBarIdx = findArrayIdx(outputPeqQSeekBarID,CurrentSeekBarId);
                         String appendString = " " + qMap[progress];
                         onSeekBarDataChanged(outputPeqQTextView[seekBarIdx],appendString);
-                        mAudioCardCtrl.output5bandPeqSetup(channel,seekBarIdx+1,0xff,progress,0x7f);
-                        mCardSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Q.ordinal() + settingsPerChannel*(channel-1) + seekBarIdx,progress);
+                        mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Q.ordinal() + settingsPerChannel*(channel-1) + seekBarIdx,progress);
                     }
                 }
             });
-            tmpProgress = mCardSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Q.ordinal() + settingsPerChannel*(channel-1) + i);
-            if (tmpProgress!=-1) {
+            tmpProgress = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Q.ordinal() + settingsPerChannel*(channel-1) + i);
+            if (tmpProgress!=255) {
                 String appendString = " " + qMap[tmpProgress];
                 onSeekBarDataChanged(outputPeqQTextView[i],appendString);
                 outputPeqQSeekBar[i].setProgress(tmpProgress);
@@ -3251,20 +3184,18 @@ public class MainActivity extends Activity implements
         //raw
         ((Button) this.findViewById(R.id.btn_card_reset)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mAudioCardCtrl.cardReset();
-                mCardSettings.reset();
+                mCurrentSettings.resetToDefault();
                 mCardProfile.reset();
                 mCardProfile.set(WsdAudioCardCtrl.SettingsName.SubwooferOutputPeqSwitch,0);
                 mCardProfile.set(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch,0);
 
-                mCardProfile.setToDspFast(mCardSettings);
-                mCardSettings.set(mCardProfile);
+                mCurrentSettings.setToDsp(mCardProfile);
             }
         });
 
         ((Button) this.findViewById(R.id.btn_card_save)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mCardProfile.set(mCardSettings);
+                mCardProfile.set(mCurrentSettings.getProfile());
                 mCardProfile.save();
             }
         });
@@ -3272,8 +3203,7 @@ public class MainActivity extends Activity implements
         ((Button) this.findViewById(R.id.btn_card_load)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mCardProfile.load();
-                mCardProfile.setToDspFast(mCardSettings);
-                mCardSettings.set(mCardProfile);
+                mCurrentSettings.setToDsp(mCardProfile);
             }
         });
 
@@ -3286,7 +3216,7 @@ public class MainActivity extends Activity implements
                 mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch,0);
 
                 mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.BassCutSwitch,1);
-                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.BassCutFrequency,0x0e-1);
+                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.BassCutFrequency,0x0e);
 
                 mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.NoiseSuppSwitch,1);
 
@@ -3295,15 +3225,15 @@ public class MainActivity extends Activity implements
                 mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.CompressorOutLevel,30);
 
                 mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqSwitch,1);
-                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq,0x0a-2);
-                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain,65);
-                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Freq,0x11-2);
+                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq,0x0a);
+                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain,5);
+                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Freq,0x11);
                 mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Q,0x0d);
-                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Gain,73);
-                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Freq,0x2e-2);
-                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Gain,72);
-                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Freq,0x34-2);
-                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Gain,102);//98
+                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Gain,13);
+                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Freq,0x2e);
+                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Gain,22);
+                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Freq,0x34);
+                mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Gain,42);//98
 
                 mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.ReverbInput,87);
                 mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.ReverbType,1);
@@ -3311,11 +3241,8 @@ public class MainActivity extends Activity implements
                 mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.ReverbPreDelay,5);
                 mCardProfileProfessional.set(WsdAudioCardCtrl.SettingsName.ReverbOutput,81);
 
-                mAudioCardCtrl.cardReset();
-                mCardSettings.reset();
-
-                mCardProfileProfessional.setToDspFast(mCardSettings);
-                mCardSettings.set(mCardProfileProfessional);
+                mCurrentSettings.resetToDefault();
+                mCurrentSettings.setToDsp(mCardProfileProfessional);
             }
         });
 
@@ -3328,7 +3255,7 @@ public class MainActivity extends Activity implements
                 mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch,0);
 
                 mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.BassCutSwitch,1);
-                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.BassCutFrequency,0x0e-1);
+                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.BassCutFrequency,0x0e);
 
                 mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.NoiseSuppSwitch,1);
 
@@ -3337,15 +3264,15 @@ public class MainActivity extends Activity implements
                 mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.CompressorOutLevel,30);
 
                 mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqSwitch,1);
-                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq,0x09-2);
-                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain,65);
-                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Freq,0x10-2);
+                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq,0x09);
+                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain,5);
+                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Freq,0x10);
                 mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Q,0x0d);
-                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Gain,82);//78
-                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Freq,0x2e-2);
-                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Gain,83);
-                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Freq,0x37-2);
-                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Gain,120);//109
+                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Gain,22);//78
+                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Freq,0x2e);
+                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Gain,23);
+                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Freq,0x37);
+                mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Gain,60);//109
 
                 mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.ReverbInput,80);
                 mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.ReverbType,2);
@@ -3356,11 +3283,8 @@ public class MainActivity extends Activity implements
                 mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.EchoFeedbackLevel,80);
                 mCardProfileStandard.set(WsdAudioCardCtrl.SettingsName.EchoTime,15);
 
-                mAudioCardCtrl.cardReset();
-                mCardSettings.reset();
-
-                mCardProfileStandard.setToDspFast(mCardSettings);
-                mCardSettings.set(mCardProfileStandard);
+                mCurrentSettings.resetToDefault();
+                mCurrentSettings.setToDsp(mCardProfileStandard);
             }
         });
 
@@ -3373,7 +3297,7 @@ public class MainActivity extends Activity implements
                 mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch,0);
 
                 mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.BassCutSwitch,1);
-                mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.BassCutFrequency,0x0e-1);
+                mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.BassCutFrequency,0x0e);
 
                 mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.NoiseSuppSwitch,1);
 
@@ -3383,11 +3307,11 @@ public class MainActivity extends Activity implements
 
                 mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.MicPeqSwitch,1);
                 mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Q,0x0d);
-                mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Gain,78);
-                mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Freq,0x2f-2);
-                mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Gain,74);
-                mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Freq,0x36-2);
-                mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Gain,108);//97
+                mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Gain,18);
+                mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Freq,0x2f);
+                mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Gain,14);
+                mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Freq,0x36);
+                mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Gain,48);//97
 
                 mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.ReverbInput,48);
                 mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.ReverbType,3);
@@ -3395,11 +3319,8 @@ public class MainActivity extends Activity implements
                 mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.ReverbPreDelay,16);
                 mCardProfileRecording.set(WsdAudioCardCtrl.SettingsName.ReverbOutput,80);
 
-                mAudioCardCtrl.cardReset();
-                mCardSettings.reset();
-
-                mCardProfileRecording.setToDspFast(mCardSettings);
-                mCardSettings.set(mCardProfileRecording);
+                mCurrentSettings.resetToDefault();
+                mCurrentSettings.setToDsp(mCardProfileRecording);
             }
         });
 
@@ -3412,7 +3333,7 @@ public class MainActivity extends Activity implements
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch,0);
 
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.BassCutSwitch,1);
-                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.BassCutFrequency,0x0e-1);
+                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.BassCutFrequency,0x0e);
 
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.NoiseSuppSwitch,1);
 
@@ -3421,16 +3342,16 @@ public class MainActivity extends Activity implements
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.CompressorOutLevel,30);
 
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqSwitch,1);
-                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq,0x08-2);
-                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain,97);
-                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Freq,0x10-2);
+                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq,0x08);
+                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain,37);
+                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Freq,0x10);
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Q,0x0d);
-                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Gain,83);
-                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand4Gain,58);
-                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Freq,0x2e-2);
-                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Gain,83);
-                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Freq,0x37-2);
-                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Gain,120);//117
+                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand2Gain,23);
+                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand4Gain,-2);
+                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Freq,0x2e);
+                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand6Gain,23);
+                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Freq,0x37);
+                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.MicPeqBand7Gain,60);//117
 
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.ReverbInput,80);
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.ReverbType,2);
@@ -3449,18 +3370,15 @@ public class MainActivity extends Activity implements
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.EchoFeedbackLevel,80);
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.EchoOutput,75);
 
-                mAudioCardCtrl.cardReset();
-                mCardSettings.reset();
-
-                mCardProfileEnjoy.setToDspFast(mCardSettings);
-                mCardSettings.set(mCardProfileEnjoy);
+                mCurrentSettings.resetToDefault();
+                mCurrentSettings.setToDsp(mCardProfileEnjoy);
             }
         });
 
 
         ((Button) this.findViewById(R.id.btn_slot1_save)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mCardProfile1.set(mCardSettings);
+                mCardProfile1.set(mCurrentSettings.getProfile());
                 mCardProfile1.save();
             }
         });
@@ -3468,16 +3386,13 @@ public class MainActivity extends Activity implements
         ((Button) this.findViewById(R.id.btn_slot1_load)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mCardProfile1.load();
-                mAudioCardCtrl.cardReset();
-                mCardSettings.reset();
-                mCardProfile1.setToDspFast(mCardSettings);
-                mCardSettings.set(mCardProfile1);
+                mCurrentSettings.setToDsp(mCardProfile1);
             }
         });
 
         ((Button) this.findViewById(R.id.btn_slot2_save)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mCardProfile2.set(mCardSettings);
+                mCardProfile2.set(mCurrentSettings.getProfile());
                 mCardProfile2.save();
             }
         });
@@ -3485,16 +3400,13 @@ public class MainActivity extends Activity implements
         ((Button) this.findViewById(R.id.btn_slot2_load)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mCardProfile2.load();
-                mAudioCardCtrl.cardReset();
-                mCardSettings.reset();
-                mCardProfile2.setToDspFast(mCardSettings);
-                mCardSettings.set(mCardProfile2);
+                mCurrentSettings.setToDsp(mCardProfile2);
             }
         });
 
         ((Button) this.findViewById(R.id.btn_slot3_save)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mCardProfile3.set(mCardSettings);
+                mCardProfile3.set(mCurrentSettings.getProfile());
                 mCardProfile3.save();
             }
         });
@@ -3502,16 +3414,13 @@ public class MainActivity extends Activity implements
         ((Button) this.findViewById(R.id.btn_slot3_load)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mCardProfile3.load();
-                mAudioCardCtrl.cardReset();
-                mCardSettings.reset();
-                mCardProfile3.setToDspFast(mCardSettings);
-                mCardSettings.set(mCardProfile3);
+                mCurrentSettings.setToDsp(mCardProfile3);
             }
         });
 
         ((Button) this.findViewById(R.id.btn_slot4_save)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mCardProfile4.set(mCardSettings);
+                mCardProfile4.set(mCurrentSettings.getProfile());
                 mCardProfile4.save();
             }
         });
@@ -3519,10 +3428,7 @@ public class MainActivity extends Activity implements
         ((Button) this.findViewById(R.id.btn_slot4_load)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mCardProfile4.load();
-                mAudioCardCtrl.cardReset();
-                mCardSettings.reset();
-                mCardProfile4.setToDspFast(mCardSettings);
-                mCardSettings.set(mCardProfile4);
+                mCurrentSettings.setToDsp(mCardProfile4);
             }
         });
 
@@ -3658,7 +3564,7 @@ public class MainActivity extends Activity implements
     @Override
     protected void onDestroy() {
         Log.d(TAG, "onDestroy()");
-        mAudioCardCtrl.audioCardDeinit();
+        WsdAudioCardCtrl.audioCardDeinit();
         super.onDestroy();
     }
 
@@ -3713,14 +3619,12 @@ public class MainActivity extends Activity implements
             stopPlayFile();
         } else if (v == mMuteSwitchBtn) {
             if (mMute == 0) {
-                mVolumeBeforeMute = mCardSettings.get(WsdAudioCardCtrl.SettingsName.MusicInputGain);
-                mCardSettings.set(WsdAudioCardCtrl.SettingsName.MusicInputGain,0);
-                mAudioCardCtrl.musicInputLevelSetup(0);
+                mVolumeBeforeMute = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.MusicInputGain);
+                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MusicInputGain,0);
                 mMuteSwitchBtn.setText("恢复");
                 mMute = 1;
             } else {
-                mCardSettings.set(WsdAudioCardCtrl.SettingsName.MusicInputGain,mVolumeBeforeMute);
-                mAudioCardCtrl.musicInputLevelSetup(mVolumeBeforeMute);
+                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.MusicInputGain,mVolumeBeforeMute);
                 mMuteSwitchBtn.setText("静音");
                 mMute = 0;
             }
