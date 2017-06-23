@@ -3356,7 +3356,7 @@ public class MainActivity extends Activity implements
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.ReverbInput,80);
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.ReverbType,2);
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.ReverbTime,10);
-                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.ReverbTone,6);
+                mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.ReverbTone,0x3f);
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.ReverbOutput,86);
 
                 mCardProfileEnjoy.set(WsdAudioCardCtrl.SettingsName.EchoInput,85);
