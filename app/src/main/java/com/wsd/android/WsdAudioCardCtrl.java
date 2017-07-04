@@ -54,7 +54,7 @@ public class WsdAudioCardCtrl {
 
     private final String TAG = "Audio Card Ctrl";
 
-    public static native int audioCardInit();
+    public static native int audioCardInit(String path);
 
     public static native int audioCardDeinit();
 

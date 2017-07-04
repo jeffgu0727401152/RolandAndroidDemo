@@ -16,7 +16,7 @@ public class AudioCardSettings {
     {
         mDspCtrl = new WsdAudioCardCtrl();
         mProfile = new AudioCardProfile(sp);
-        mDspCtrl.audioCardInit();
+        mDspCtrl.audioCardInit("/dev/ttyUSB1");
     }
 
     public int saveToDspSlot(int slotIdx)
