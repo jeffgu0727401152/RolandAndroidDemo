@@ -147,9 +147,11 @@ public class WsdAudioCardCtrl {
 
     public static native int outputBandpassfilterSetup(int channel, int hpf_type, int hpf_frequency, int lpf_type, int lpf_frequency);
 
-    public static native int outputSubwoofferCompressorEnable(int enable);
+    public static native int outputSubwooferCompressorEnable(int enable);
 
-    public static native int outputSubwoofferCompressorSetup(int attack, int release, int threshold, int ratio, int gain);
+    public static native int outputSubwooferCompressorSetup(int attack, int release, int threshold, int ratio, int gain);
+
+    public static native int mixerCenterSubwooferSwitchStereo(int enable);
 
     public static native int cardReset();
 
@@ -257,6 +259,8 @@ public class WsdAudioCardCtrl {
         CenterOutputPeqBand1Gain, CenterOutputPeqBand2Gain, CenterOutputPeqBand3Gain, CenterOutputPeqBand4Gain, CenterOutputPeqBand5Gain,
         //subwoofer compressor
         OutputCompressorSwitch, OutputCompressorAttack, OutputCompressorRelease, OutputCompressorThreshold, OutputCompressorRatio, OutputCompressorPostgain,
+
+        CenterSubwooferSwitchStereo,
 
         END
     }
@@ -731,22 +735,25 @@ public class WsdAudioCardCtrl {
                 break;
 
             case OutputCompressorSwitch:
-                ret = outputSubwoofferCompressorEnable(value);
+                ret = outputSubwooferCompressorEnable(value);
                 break;
             case OutputCompressorAttack:
-                ret = outputSubwoofferCompressorSetup(value, 0xff, 0xff, 0xff, 0xff);
+                ret = outputSubwooferCompressorSetup(value, 0xff, 0xff, 0xff, 0xff);
                 break;
             case OutputCompressorRelease:
-                ret = outputSubwoofferCompressorSetup(0xff, value, 0xff, 0xff, 0xff);
+                ret = outputSubwooferCompressorSetup(0xff, value, 0xff, 0xff, 0xff);
                 break;
             case OutputCompressorThreshold:
-                ret = outputSubwoofferCompressorSetup(0xff, 0xff, value, 0xff, 0xff);
+                ret = outputSubwooferCompressorSetup(0xff, 0xff, value, 0xff, 0xff);
                 break;
             case OutputCompressorRatio:
-                ret = outputSubwoofferCompressorSetup(0xff, 0xff, 0xff, value, 0xff);
+                ret = outputSubwooferCompressorSetup(0xff, 0xff, 0xff, value, 0xff);
                 break;
             case OutputCompressorPostgain:
-                ret = outputSubwoofferCompressorSetup(0xff, 0xff, 0xff, 0xff, value);
+                ret = outputSubwooferCompressorSetup(0xff, 0xff, 0xff, 0xff, value);
+                break;
+            case CenterSubwooferSwitchStereo:
+                ret = mixerCenterSubwooferSwitchStereo(value);
                 break;
             default:
                 Log.e(TAG,"need to add missing case");

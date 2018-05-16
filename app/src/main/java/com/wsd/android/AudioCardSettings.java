@@ -16,7 +16,8 @@ public class AudioCardSettings {
     {
         mDspCtrl = new WsdAudioCardCtrl();
         mProfile = new AudioCardProfile(sp);
-        mDspCtrl.audioCardInit("/dev/ttyUSB1");
+        //mDspCtrl.audioCardInit("/dev/ttyUSB1");
+        mDspCtrl.audioCardInit("/dev/ttyAMA2");
     }
 
     public int saveToDspSlot(int slotIdx)
@@ -381,7 +382,7 @@ public class AudioCardSettings {
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch.ordinal());
-        if (a!=a1)mDspCtrl.outputSubwoofferCompressorEnable(a);
+        if (a!=a1)mDspCtrl.outputSubwooferCompressorEnable(a);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.OutputCompressorAttack.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.OutputCompressorRelease.ordinal());
@@ -393,7 +394,7 @@ public class AudioCardSettings {
         c1 = source.get(WsdAudioCardCtrl.SettingsName.OutputCompressorThreshold.ordinal());
         d1 = source.get(WsdAudioCardCtrl.SettingsName.OutputCompressorRatio.ordinal());
         e1 = source.get(WsdAudioCardCtrl.SettingsName.OutputCompressorPostgain.ordinal());
-        if (a!=a1||b!=b1||c!=c1||d!=d1||e!=e1) mDspCtrl.outputSubwoofferCompressorSetup(a,b,c,d,e);
+        if (a!=a1||b!=b1||c!=c1||d!=d1||e!=e1) mDspCtrl.outputSubwooferCompressorSetup(a,b,c,d,e);
 
         mProfile = source;
         return;
