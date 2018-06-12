@@ -51,7 +51,7 @@ public class AudioCardSettings {
         }
 
         try {
-        Thread.sleep(2000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -116,31 +116,31 @@ public class AudioCardSettings {
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.MicInputR.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.MicInputL.ordinal());
         b1 = source.get(WsdAudioCardCtrl.SettingsName.MicInputR.ordinal());
-        if (a!=a1 || b!=b1) mDspCtrl.micLRLevelSetup(a, b);
+        if (a!=a1 || b!=b1) mDspCtrl.micLRLevelSetup(a1, b1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.MicInputGain.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.MicInputGain.ordinal());
-        if (a!=a1) mDspCtrl.micInputLevelSetup(a);
+        if (a!=a1) mDspCtrl.micInputLevelSetup(a1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.MicInputAux.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.MusicInputAux.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.MicInputAux.ordinal());
         b1 = source.get(WsdAudioCardCtrl.SettingsName.MusicInputAux.ordinal());
-        if (a!=a1 || b!=b1) mDspCtrl.auxLevelSetup(a, b);
+        if (a!=a1 || b!=b1) mDspCtrl.auxLevelSetup(a1, b1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.BassCutSwitch.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.BassCutFrequency.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.BassCutSwitch.ordinal());
         b1 = source.get(WsdAudioCardCtrl.SettingsName.BassCutFrequency.ordinal());
-        if (a!=a1) mDspCtrl.micBasscutEnable(a);
-        if (b!=b1) mDspCtrl.micBasscutFrequencySetup(b + 1);
+        if (a!=a1) mDspCtrl.micBasscutEnable(a1);
+        if (b!=b1) mDspCtrl.micBasscutFrequencySetup(b1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.NoiseSuppSwitch.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.NoiseSuppThreshold.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.NoiseSuppSwitch.ordinal());
         b1 = source.get(WsdAudioCardCtrl.SettingsName.NoiseSuppThreshold.ordinal());
-        if (a!=a1) mDspCtrl.micNoiseSuppEnable(a);
-        if (b!=b1) mDspCtrl.micNoiseThresholdSetup(b);
+        if (a!=a1) mDspCtrl.micNoiseSuppEnable(a1);
+        if (b!=b1) mDspCtrl.micNoiseThresholdSetup(b1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.CompressorSwitch.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.CompressorSustain.ordinal());
@@ -148,26 +148,26 @@ public class AudioCardSettings {
         a1 = source.get(WsdAudioCardCtrl.SettingsName.CompressorSwitch.ordinal());
         b1 = source.get(WsdAudioCardCtrl.SettingsName.CompressorSustain.ordinal());
         c1 = source.get(WsdAudioCardCtrl.SettingsName.CompressorOutLevel.ordinal());
-        if (a!=a1) mDspCtrl.micCompressorEnable(a);
-        if (c!=c1 || b!=b1) mDspCtrl.micCompressorSetup(b,c);
+        if (a!=a1) mDspCtrl.micCompressorEnable(a1);
+        if (c!=c1 || b!=b1) mDspCtrl.micCompressorSetup(b1,c1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.FrequencyShift.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.FrequencyShift.ordinal());
-        if (a!=a1) mDspCtrl.micFrequencyShiftSetup(a-10);
+        if (a!=a1) mDspCtrl.micFrequencyShiftSetup(a1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.MicInputPhaseReverse.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.MicInputPhaseReverse.ordinal());
-        if (a!=a1) mDspCtrl.micDryOutputSetup(0xff,a);
+        if (a!=a1) mDspCtrl.micDryOutputSetup(0xff,a1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.MicPeqSwitch.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.MicPeqSwitch.ordinal());
-        if (a!=a1) mDspCtrl.mic7bandPeqEnable(a);
+        if (a!=a1) mDspCtrl.mic7bandPeqEnable(a1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.MicPeqBand1Type.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.MicPeqBand1Type.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.MicPeqBand7Type.ordinal());
         b1 = source.get(WsdAudioCardCtrl.SettingsName.MicPeqBand7Type.ordinal());
-        if (a!=a1||b!=b1) mDspCtrl.mic7bandPeqEdgeSetup(a,b);
+        if (a!=a1||b!=b1) mDspCtrl.mic7bandPeqEdgeSetup(a1,b1);
 
         for (int i=0;i<7;i++) {
             a = mProfile.get(WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq.ordinal()+i);
@@ -176,13 +176,13 @@ public class AudioCardSettings {
             a1 = source.get(WsdAudioCardCtrl.SettingsName.MicPeqBand1Freq.ordinal()+i);
             b1 = source.get(WsdAudioCardCtrl.SettingsName.MicPeqBand1Q.ordinal()+i);
             c1 = source.get(WsdAudioCardCtrl.SettingsName.MicPeqBand1Gain.ordinal()+i);
-            if (c!=c1 || b!=b1 || a!=a1) mDspCtrl.mic7bandPeqSetup(i+1,a+2,b,c-60);
+            if (c!=c1 || b!=b1 || a!=a1) mDspCtrl.mic7bandPeqSetup(i+1,a1,b1,c1);
         }
 
         //music
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.MusicInputGain.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.MusicInputGain.ordinal());
-        if (a!=a1) mDspCtrl.musicInputLevelSetup(a);
+        if (a!=a1) mDspCtrl.musicInputLevelSetup(a1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.KeyControlSwitch.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.KeyControlPitch.ordinal());
@@ -190,33 +190,33 @@ public class AudioCardSettings {
         a1 = source.get(WsdAudioCardCtrl.SettingsName.KeyControlSwitch.ordinal());
         b1 = source.get(WsdAudioCardCtrl.SettingsName.KeyControlPitch.ordinal());
         c1 = source.get(WsdAudioCardCtrl.SettingsName.KeyControlPitchFine.ordinal());
-        if (a!=a1) mDspCtrl.musicKeyctrlEnable(a);
-        if (c!=c1 || b!=b1) mDspCtrl.musicKeyctrlSetup(b-12,c-50);
+        if (a!=a1) mDspCtrl.musicKeyctrlEnable(a1);
+        if (c!=c1 || b!=b1) mDspCtrl.musicKeyctrlSetup(b1,c1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.MusicInputPhaseReverse.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.MusicInputPhaseReverse.ordinal());
-        if (a!=a1) mDspCtrl.musicPhaseSetup(a);
+        if (a!=a1) mDspCtrl.musicPhaseSetup(a1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.MusicGeqSwitch.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.MusicGeqSwitch.ordinal());
-        if (a!=a1) mDspCtrl.music31bandGeqEnable(a);
+        if (a!=a1) mDspCtrl.music31bandGeqEnable(a1);
 
         for (int i=0;i<31;i++) {
             a = mProfile.get(WsdAudioCardCtrl.SettingsName.MusicGeqBand1Gain.ordinal()+i);
             a1 = source.get(WsdAudioCardCtrl.SettingsName.MusicGeqBand1Gain.ordinal()+i);
-            if (a!=a1) mDspCtrl.music31bandGeqSetup(i+1,a-60);
+            if (a!=a1) mDspCtrl.music31bandGeqSetup(i+1,a1);
         }
 
         //echo
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.EchoInput.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.EchoInput.ordinal());
-        if (a!=a1) mDspCtrl.echoInputLevelSetup(a);
+        if (a!=a1) mDspCtrl.echoInputLevelSetup(a1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.EchoOutput.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.EchoPhaseReverse.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.EchoOutput.ordinal());
         b1 = source.get(WsdAudioCardCtrl.SettingsName.EchoPhaseReverse.ordinal());
-        if (a!=a1 || b!=b1) mDspCtrl.echoOutputSetup(a,b);
+        if (a!=a1 || b!=b1) mDspCtrl.echoOutputSetup(a1,b1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.EchoTime.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.EchoLevel.ordinal());
@@ -230,7 +230,7 @@ public class AudioCardSettings {
         d1 = source.get(WsdAudioCardCtrl.SettingsName.EchoTone.ordinal());
         e1 = source.get(WsdAudioCardCtrl.SettingsName.EchoPan.ordinal());
         f1 = source.get(WsdAudioCardCtrl.SettingsName.EchoPreDelay.ordinal());
-        if (a!=a1||b!=b1||c!=c1||d!=d1||e!=e1||f!=f1) mDspCtrl.echoEffectsSetup(a,b,e,d+57,c,f);
+        if (a!=a1||b!=b1||c!=c1||d!=d1||e!=e1||f!=f1) mDspCtrl.echoEffectsSetup(a1,b1,e1,d1,c1,f1);
 
         for (int i=0;i<3;i++) {
             a = mProfile.get(WsdAudioCardCtrl.SettingsName.EchoTap1Time.ordinal()+i);
@@ -239,18 +239,18 @@ public class AudioCardSettings {
             a1 = source.get(WsdAudioCardCtrl.SettingsName.EchoTap1Time.ordinal()+i);
             b1 = source.get(WsdAudioCardCtrl.SettingsName.EchoTap1Level.ordinal()+i);
             c1 = source.get(WsdAudioCardCtrl.SettingsName.EchoTap1Pan.ordinal()+i);
-            if (a!=a1||b!=b1||c!=c1) mDspCtrl.echoTapEffectsSetup(i+1,a,b,c);
+            if (a!=a1||b!=b1||c!=c1) mDspCtrl.echoTapEffectsSetup(i+1,a1,b1,c1);
         }
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.EchoPeqSwitch.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.EchoPeqSwitch.ordinal());
-        if (a!=a1) mDspCtrl.echo5bandPeqEnable(a);
+        if (a!=a1) mDspCtrl.echo5bandPeqEnable(a1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Type.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Type.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand5Type.ordinal());
         b1 = source.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand5Type.ordinal());
-        if (a!=a1||b!=b1) mDspCtrl.echo5bandPeqEdgeSetup(a,b);
+        if (a!=a1||b!=b1) mDspCtrl.echo5bandPeqEdgeSetup(a1,b1);
 
         for (int i=0;i<5;i++) {
             a = mProfile.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Freq.ordinal()+i);
@@ -259,7 +259,7 @@ public class AudioCardSettings {
             a1 = source.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Freq.ordinal()+i);
             b1 = source.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Q.ordinal()+i);
             c1 = source.get(WsdAudioCardCtrl.SettingsName.EchoPeqBand1Gain.ordinal()+i);
-            if (a!=a1||b!=b1||c!=c1) mDspCtrl.echo5bandPeqSetup(i+1,a+2,b,c-60);
+            if (a!=a1||b!=b1||c!=c1) mDspCtrl.echo5bandPeqSetup(i+1,a1,b1,c1);
         }
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.EchoHighpassFreq.ordinal());
@@ -270,18 +270,18 @@ public class AudioCardSettings {
         b1 = source.get(WsdAudioCardCtrl.SettingsName.EchoHighpassType.ordinal());
         c1 = source.get(WsdAudioCardCtrl.SettingsName.EchoLowpassFreq.ordinal());
         d1 = source.get(WsdAudioCardCtrl.SettingsName.EchoLowpassType.ordinal());
-        if (a!=a1||b!=b1||c!=c1||d!=d1) mDspCtrl.echoBandpassfilterSetup(b,a,d,c);
+        if (a!=a1||b!=b1||c!=c1||d!=d1) mDspCtrl.echoBandpassfilterSetup(b1,a1,d1,c1);
 
         //reverb
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.ReverbInput.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbInput.ordinal());
-        if (a!=a1) mDspCtrl.reverbInputLevelSetup(a);
+        if (a!=a1) mDspCtrl.reverbInputLevelSetup(a1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.ReverbOutput.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.ReverbPhaseReverse.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbOutput.ordinal());
         b1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbPhaseReverse.ordinal());
-        if (a!=a1||b!=b1) mDspCtrl.reverbOutputSetup(a,b);
+        if (a!=a1||b!=b1) mDspCtrl.reverbOutputSetup(a1,b1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.ReverbTime.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.ReverbType.ordinal());
@@ -291,21 +291,21 @@ public class AudioCardSettings {
         b1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbType.ordinal());
         c1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbTone.ordinal());
         d1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbPreDelay.ordinal());
-        if (a!=a1||b!=b1||c!=c1||d!=d1) mDspCtrl.reverbEffectsSetup(b,a,c+57,d);
+        if (a!=a1||b!=b1||c!=c1||d!=d1) mDspCtrl.reverbEffectsSetup(b1,a1,c1,d1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.EchoToReverb.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.EchoToReverb.ordinal());
-        if (a!=a1) mDspCtrl.echoToReverbLevelSetup(a);
+        if (a!=a1) mDspCtrl.echoToReverbLevelSetup(a1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.ReverbPeqSwitch.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbPeqSwitch.ordinal());
-        if (a!=a1) mDspCtrl.reverb5bandPeqEnable(a);
+        if (a!=a1) mDspCtrl.reverb5bandPeqEnable(a1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Type.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Type.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand5Type.ordinal());
         b1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand5Type.ordinal());
-        if (a!=a1||b!=b1) mDspCtrl.reverb5bandPeqEdgeSetup(a,b);
+        if (a!=a1||b!=b1) mDspCtrl.reverb5bandPeqEdgeSetup(a1,b1);
 
         for (int i=0;i<5;i++) {
             a = mProfile.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Freq.ordinal()+i);
@@ -314,7 +314,7 @@ public class AudioCardSettings {
             a1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Freq.ordinal()+i);
             b1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Q.ordinal()+i);
             c1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbPeqBand1Gain.ordinal()+i);
-            if (a!=a1||b!=b1||c!=c1) mDspCtrl.reverb5bandPeqSetup(i+1,a+2,b,c-60);
+            if (a!=a1||b!=b1||c!=c1) mDspCtrl.reverb5bandPeqSetup(i+1,a1,b1,c1);
         }
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.ReverbHighpassFreq.ordinal());
@@ -325,7 +325,7 @@ public class AudioCardSettings {
         b1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbHighpassType.ordinal());
         c1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbLowpassFreq.ordinal());
         d1 = source.get(WsdAudioCardCtrl.SettingsName.ReverbLowpassType.ordinal());
-        if (a!=a1||b!=b1||c!=c1||d!=d1) mDspCtrl.reverbBandpassfilterSetup(b,a,d,c);
+        if (a!=a1||b!=b1||c!=c1||d!=d1) mDspCtrl.reverbBandpassfilterSetup(b1,a1,d1,c1);
 
         //output
         final int itemPerChannel= WsdAudioCardCtrl.SettingsName.RearOutputPeqBand5Gain.ordinal() - WsdAudioCardCtrl.SettingsName.RearOutputDirect.ordinal() + 1;
@@ -338,7 +338,7 @@ public class AudioCardSettings {
             b1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputEcho.ordinal() + i*itemPerChannel);
             c1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputReverb.ordinal() + i*itemPerChannel);
             d1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputMusic.ordinal() + i*itemPerChannel);
-            if (a!=a1||b!=b1||c!=c1||d!=d1) mDspCtrl.mixerMixSetup(i+1,a,b,c,d);
+            if (a!=a1||b!=b1||c!=c1||d!=d1) mDspCtrl.mixerMixSetup(i+1,a1,b1,c1,d1);
 
             a = mProfile.get(WsdAudioCardCtrl.SettingsName.RearOutputGain.ordinal() + i*itemPerChannel);
             b = mProfile.get(WsdAudioCardCtrl.SettingsName.RearOutputDelay.ordinal() + i*itemPerChannel);
@@ -346,17 +346,17 @@ public class AudioCardSettings {
             a1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputGain.ordinal() + i*itemPerChannel);
             b1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputDelay.ordinal() + i*itemPerChannel);
             c1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputPhaseReverse.ordinal() + i*itemPerChannel);
-            if (a!=a1||b!=b1||c!=c1) mDspCtrl.outputSetup(i+1,a,b,c);
+            if (a!=a1||b!=b1||c!=c1) mDspCtrl.outputSetup(i+1,a1,b1,c1);
 
             a = mProfile.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqSwitch.ordinal() + i*itemPerChannel);
             a1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqSwitch.ordinal() + i*itemPerChannel);
-            if (a!=a1) mDspCtrl.output5bandPeqEnable(i+1,a);
+            if (a!=a1) mDspCtrl.output5bandPeqEnable(i+1,a1);
 
             a = mProfile.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Type.ordinal() + i*itemPerChannel);
             a1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Type.ordinal() + i*itemPerChannel);
             b = mProfile.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand5Type.ordinal() + i*itemPerChannel);
             b1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand5Type.ordinal() + i*itemPerChannel);
-            if(a!=a1||b!=b1) mDspCtrl.output5bandPeqEdgeSetup(i+1,a,b);
+            if(a!=a1||b!=b1) mDspCtrl.output5bandPeqEdgeSetup(i+1,a1,b1);
 
             for (int j=0;j<5;j++) {
                 a = mProfile.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Freq.ordinal() + i*itemPerChannel +j);
@@ -365,7 +365,7 @@ public class AudioCardSettings {
                 a1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Freq.ordinal() + i*itemPerChannel +j);
                 b1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Q.ordinal() + i*itemPerChannel +j);
                 c1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputPeqBand1Gain.ordinal() + i*itemPerChannel +j);
-                if (a!=a1||b!=b1||c!=c1) mDspCtrl.output5bandPeqSetup(i + 1, j + 1, a + 2, b, c - 60);
+                if (a!=a1||b!=b1||c!=c1) mDspCtrl.output5bandPeqSetup(i + 1, j + 1, a1,b1,c1);
             }
 
             a = mProfile.get(WsdAudioCardCtrl.SettingsName.RearOutputHighpassFreq.ordinal() + i*itemPerChannel);
@@ -376,13 +376,13 @@ public class AudioCardSettings {
             b1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputHighpassType.ordinal() + i*itemPerChannel);
             c1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputLowpassFreq.ordinal() + i*itemPerChannel);
             d1 = source.get(WsdAudioCardCtrl.SettingsName.RearOutputLowpassType.ordinal() + i*itemPerChannel);
-            if (a!=a1||b!=b1||c!=c1||d!=d1) mDspCtrl.outputBandpassfilterSetup(i+1, b,a,d,c);
+            if (a!=a1||b!=b1||c!=c1||d!=d1) mDspCtrl.outputBandpassfilterSetup(i+1, b1,a1,d1,c1);
 
         }
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch.ordinal());
         a1 = source.get(WsdAudioCardCtrl.SettingsName.OutputCompressorSwitch.ordinal());
-        if (a!=a1)mDspCtrl.outputSubwooferCompressorEnable(a);
+        if (a!=a1)mDspCtrl.outputSubwooferCompressorEnable(a1);
 
         a = mProfile.get(WsdAudioCardCtrl.SettingsName.OutputCompressorAttack.ordinal());
         b = mProfile.get(WsdAudioCardCtrl.SettingsName.OutputCompressorRelease.ordinal());
@@ -394,7 +394,11 @@ public class AudioCardSettings {
         c1 = source.get(WsdAudioCardCtrl.SettingsName.OutputCompressorThreshold.ordinal());
         d1 = source.get(WsdAudioCardCtrl.SettingsName.OutputCompressorRatio.ordinal());
         e1 = source.get(WsdAudioCardCtrl.SettingsName.OutputCompressorPostgain.ordinal());
-        if (a!=a1||b!=b1||c!=c1||d!=d1||e!=e1) mDspCtrl.outputSubwooferCompressorSetup(a,b,c,d,e);
+        if (a!=a1||b!=b1||c!=c1||d!=d1||e!=e1) mDspCtrl.outputSubwooferCompressorSetup(a1,b1,c1,d1,e1);
+
+        a = mProfile.get(WsdAudioCardCtrl.SettingsName.CenterSubwooferSwitchStereo.ordinal());
+        a1 = source.get(WsdAudioCardCtrl.SettingsName.CenterSubwooferSwitchStereo.ordinal());
+        if (a!=a1) mDspCtrl.mixerCenterSubwooferSwitchStereo(a1);
 
         mProfile = source;
         return;

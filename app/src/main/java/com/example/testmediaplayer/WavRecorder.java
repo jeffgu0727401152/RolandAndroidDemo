@@ -26,7 +26,7 @@ public class WavRecorder {
     private int mRecBufSize = 0;
     private boolean mIsRecording = false;// 录音标志位
 
-    private String mTempFilePath = "/sdcard/Music/temp.raw";// 临时文件的路径
+    private String mTempFilePath = "/sdcard/temp.raw";// 临时文件的路径
     private String mTempLFilePath = "/sdcard/L.raw";// 临时文件的路径
     private String mTempRFilePath = "/sdcard/R.raw";// 临时文件的路径
 
@@ -104,7 +104,7 @@ public class WavRecorder {
                 copyWaveFile(mTempFilePath, mSaveFilePath);
                 copyWaveFile(mTempLFilePath, mSaveLFilePath);
                 copyWaveFile(mTempRFilePath, mSaveRFilePath);
-                deleteTempFile(mTempFilePath);
+                //deleteTempFile(mTempFilePath);
                 deleteTempFile(mTempLFilePath);
                 deleteTempFile(mTempRFilePath);
                 handler.sendEmptyMessage(2);// 执行耗时的方法之后发送消给handler

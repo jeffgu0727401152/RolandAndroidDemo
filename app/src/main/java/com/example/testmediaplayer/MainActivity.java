@@ -212,6 +212,7 @@ public class MainActivity extends Activity implements
         setupReverbPanel();
         setupEchoPanel();
         setupOutputPanel();
+        setupProfilePanel();
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -3181,6 +3182,74 @@ public class MainActivity extends Activity implements
     }
 
     private void setupOutputPanel() {
+        ((Button) this.findViewById(R.id.btn_front_output)).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+                View currentOutputView = layoutInflater.inflate(R.layout.view_output, null);
+                builder.setView(currentOutputView);
+                builder.setTitle("Front Output Panel");
+                builder.show();
+                final int channel = 2;
+                prepareOutputPanel(channel,currentOutputView);
+
+            }
+        });
+
+        ((Button) this.findViewById(R.id.btn_center_output)).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+                View currentOutputView = layoutInflater.inflate(R.layout.view_output, null);
+                builder.setView(currentOutputView);
+                builder.setTitle("Center Output Panel");
+                builder.show();
+                final int channel = 4;
+                prepareOutputPanel(channel,currentOutputView);
+            }
+        });
+
+        ((Button) this.findViewById(R.id.btn_sub_output)).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+                View currentOutputView = layoutInflater.inflate(R.layout.view_output, null);
+                builder.setView(currentOutputView);
+                builder.setTitle("Subwoofer Output Panel");
+                builder.show();
+                final int channel = 3;
+                prepareOutputPanel(channel,currentOutputView);
+            }
+        });
+
+        ((Button) this.findViewById(R.id.btn_rear_output)).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+                View currentOutputView = layoutInflater.inflate(R.layout.view_output, null);
+                builder.setView(currentOutputView);
+                builder.setTitle("Rear Output Panel");
+                builder.show();
+                final int channel = 1;
+                prepareOutputPanel(channel,currentOutputView);
+            }
+        });
+
+        CheckBox switchStereoCheckbox = (CheckBox)this.findViewById(R.id.switchStereoCheckbox);
+        switchStereoCheckbox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton button, boolean isChecked){
+                int stereo = isChecked?1:0;
+                mCurrentSettings.set(WsdAudioCardCtrl.SettingsName.CenterSubwooferSwitchStereo.ordinal(),stereo);
+            }
+        });
+        int tmp = mCurrentSettings.get(WsdAudioCardCtrl.SettingsName.CenterSubwooferSwitchStereo.ordinal());
+        if (tmp!=255) {
+            switchStereoCheckbox.setChecked(tmp==0?false:true);
+        }
+    }
+
+    private void setupProfilePanel() {
         //raw
         ((Button) this.findViewById(R.id.btn_card_reset)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -3429,59 +3498,6 @@ public class MainActivity extends Activity implements
             public void onClick(View v) {
                 mCardProfile4.load();
                 mCurrentSettings.setToDsp(mCardProfile4);
-            }
-        });
-
-        ((Button) this.findViewById(R.id.btn_front_output)).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-                View currentOutputView = layoutInflater.inflate(R.layout.view_output, null);
-                builder.setView(currentOutputView);
-                builder.setTitle("Front Output Panel");
-                builder.show();
-                final int channel = 2;
-                prepareOutputPanel(channel,currentOutputView);
-
-            }
-        });
-
-        ((Button) this.findViewById(R.id.btn_center_output)).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-                View currentOutputView = layoutInflater.inflate(R.layout.view_output, null);
-                builder.setView(currentOutputView);
-                builder.setTitle("Center Output Panel");
-                builder.show();
-                final int channel = 4;
-                prepareOutputPanel(channel,currentOutputView);
-            }
-        });
-
-        ((Button) this.findViewById(R.id.btn_sub_output)).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-                View currentOutputView = layoutInflater.inflate(R.layout.view_output, null);
-                builder.setView(currentOutputView);
-                builder.setTitle("Subwoofer Output Panel");
-                builder.show();
-                final int channel = 3;
-                prepareOutputPanel(channel,currentOutputView);
-            }
-        });
-
-        ((Button) this.findViewById(R.id.btn_rear_output)).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-                View currentOutputView = layoutInflater.inflate(R.layout.view_output, null);
-                builder.setView(currentOutputView);
-                builder.setTitle("Rear Output Panel");
-                builder.show();
-                final int channel = 1;
-                prepareOutputPanel(channel,currentOutputView);
             }
         });
     }
@@ -3868,7 +3884,7 @@ public class MainActivity extends Activity implements
         mWavRecorder.startRecorder(
                 recordSource,
                 48000,
-                AudioFormat.CHANNEL_IN_MONO,
+                AudioFormat.CHANNEL_IN_STEREO,
                 AudioFormat.ENCODING_PCM_16BIT,
                 recordPath,
                 tmpPath);

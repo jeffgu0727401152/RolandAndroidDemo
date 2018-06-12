@@ -170,13 +170,13 @@
                 android:id="@+id/btn_echo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="echo" />
+                android:text="echo设置" />
 
             <Button
                 android:id="@+id/btn_reverb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="reverb" />
+                android:text="reverb设置" />
 
         </LinearLayout>
 
@@ -195,7 +195,7 @@
                 android:id="@+id/btn_center_output"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="录音送回" />
+                android:text="录音输出" />
 
             <Button
                 android:id="@+id/btn_sub_output"
@@ -208,6 +208,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="小板输出" />
+
+            <CheckBox
+                android:text="立体声音乐录音"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/switchStereoCheckbox"/>
         </LinearLayout>
 
         <LinearLayout
@@ -247,7 +254,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:orientation="vertical" >
 
                 <TextView
@@ -298,7 +305,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:orientation="vertical" >
 
                 <TextView
@@ -324,7 +331,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:orientation="vertical" >
 
                 <TextView
